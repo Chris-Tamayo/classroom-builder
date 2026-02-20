@@ -18,6 +18,8 @@ const Builder = () => {
   const [showWeekend, setShowWeekend] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editingClass, setEditingClass] = useState<ClassEntry | null>(null);
+  const [startHour, setStartHour] = useState(7);
+  const [endHour, setEndHour] = useState(22);
   const gridRef = useRef<HTMLDivElement>(null);
 
   const days = showWeekend ? ALL_DAYS : WEEKDAYS;
@@ -125,6 +127,7 @@ const Builder = () => {
                 </DialogHeader>
                 <ClassForm
                   onSave={handleSave}
+                  onDelete={editingClass ? () => { handleDelete(editingClass.id); setFormOpen(false); setEditingClass(null); } : undefined}
                   initial={editingClass ?? undefined}
                   usedColors={classes.map(c => c.color)}
                 />
@@ -139,6 +142,20 @@ const Builder = () => {
               />
               Show weekends
             </label>
+            <div className="flex items-center gap-2 text-sm">
+              <label htmlFor="start-hour" className="text-muted-foreground">From</label>
+              <select id="start-hour" value={startHour} onChange={e => setStartHour(Number(e.target.value))} className="bg-muted border border-border rounded px-2 py-1 text-sm">
+                {Array.from({ length: 24 }, (_, i) => i).filter(h => h < endHour).map(h => (
+                  <option key={h} value={h}>{h === 0 ? '12 AM' : h < 12 ? `${h} AM` : h === 12 ? '12 PM' : `${h - 12} PM`}</option>
+                ))}
+              </select>
+              <label htmlFor="end-hour" className="text-muted-foreground">to</label>
+              <select id="end-hour" value={endHour} onChange={e => setEndHour(Number(e.target.value))} className="bg-muted border border-border rounded px-2 py-1 text-sm">
+                {Array.from({ length: 24 }, (_, i) => i).filter(h => h > startHour).map(h => (
+                  <option key={h} value={h}>{h === 0 ? '12 AM' : h < 12 ? `${h} AM` : h === 12 ? '12 PM' : `${h - 12} PM`}</option>
+                ))}
+              </select>
+            </div>
           </div>
           {classes.length > 0 && (
             <Button variant="ghost" size="sm" onClick={clearAll} className="text-destructive hover:text-destructive">
@@ -158,6 +175,8 @@ const Builder = () => {
             days={days}
             classes={classes}
             conflicts={conflicts}
+            startHour={startHour}
+            endHour={endHour}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
