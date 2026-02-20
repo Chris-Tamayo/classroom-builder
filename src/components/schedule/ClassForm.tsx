@@ -7,11 +7,12 @@ import { Trash2 } from 'lucide-react';
 
 interface ClassFormProps {
   onSave: (entry: Omit<ClassEntry, 'id'>) => void;
+  onDelete?: () => void;
   initial?: ClassEntry;
   usedColors: string[];
 }
 
-export function ClassForm({ onSave, initial, usedColors }: ClassFormProps) {
+export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormProps) {
   const nextColor = CLASS_COLORS.find(c => !usedColors.includes(c.value))?.value ?? CLASS_COLORS[0].value;
 
   const [name, setName] = useState(initial?.name ?? '');
@@ -101,9 +102,16 @@ export function ClassForm({ onSave, initial, usedColors }: ClassFormProps) {
         </div>
       </div>
 
-      <Button type="submit" className="w-full rounded-full" disabled={!name.trim() || days.length === 0}>
-        {initial ? 'Update Class' : 'Add Class'}
-      </Button>
+      <div className="flex gap-2">
+        <Button type="submit" className="flex-1 rounded-full" disabled={!name.trim() || days.length === 0}>
+          {initial ? 'Update Class' : 'Add Class'}
+        </Button>
+        {onDelete && (
+          <Button type="button" variant="destructive" className="rounded-full" onClick={onDelete}>
+            <Trash2 className="h-4 w-4 mr-1" /> Delete
+          </Button>
+        )}
+      </div>
     </form>
   );
 }
