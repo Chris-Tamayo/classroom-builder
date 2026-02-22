@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Calendar, Download, Palette, Share2, Moon, Sun, Zap, Shield } from 'lucide-react';
-import { useTheme } from '@/hooks/useTheme';
+import { Calendar, Download, Palette, Share2, Zap, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AppHeader from '@/components/AppHeader';
 
 const features = [
   { icon: Palette, title: 'Color-Coded', desc: 'Each class gets a unique color so you can read your week at a glance.' },
@@ -13,29 +13,11 @@ const features = [
 ];
 
 const Index = () => {
-  const { theme, toggle } = useTheme();
-
   return (
     <div className="min-h-screen bg-background">
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-lg">
-        <nav className="container mx-auto flex h-16 items-center justify-between px-4" aria-label="Main navigation">
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            <Calendar className="h-6 w-6 text-primary" aria-hidden="true" />
-            <span>ClassGrid</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-            </Button>
-            <Button asChild>
-              <Link to="/builder">Create Schedule</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link to="/groups">Group Generator</Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
+      <div className="fixed top-0 inset-x-0 z-50">
+        <AppHeader />
+      </div>
 
       <main>
         {/* Hero */}

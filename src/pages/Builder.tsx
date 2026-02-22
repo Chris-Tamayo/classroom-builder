@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Calendar, Moon, Sun, Plus, Download, Share2, Trash2 } from 'lucide-react';
+import { Calendar, Plus, Download, Share2, Trash2 } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useSchedule } from '@/hooks/useSchedule';
 import { WEEKDAYS, ALL_DAYS, Day, ClassEntry, CLASS_COLORS, timeToMinutes, formatTime, hasConflict } from '@/types/schedule';
@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { toast } from 'sonner';
 import html2canvas from 'html2canvas';
 import { motion, AnimatePresence } from 'framer-motion';
+import AppHeader from '@/components/AppHeader';
 
 const Builder = () => {
   const { theme, toggle } = useTheme();
@@ -92,25 +93,18 @@ const Builder = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-lg">
-        <nav className="container mx-auto flex h-14 items-center justify-between px-4" aria-label="Builder navigation">
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span>ClassGrid</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-            </Button>
+      <AppHeader
+        actions={
+          <>
             <Button variant="ghost" size="sm" onClick={handleExportPNG} aria-label="Export as PNG">
               <Download className="h-4 w-4 mr-1" /> Export
             </Button>
             <Button variant="ghost" size="sm" onClick={handleShare} aria-label="Copy shareable link" disabled={classes.length === 0}>
               <Share2 className="h-4 w-4 mr-1" /> Share
             </Button>
-          </div>
-        </nav>
-      </header>
+          </>
+        }
+      />
 
       <main className="container mx-auto px-4 py-6">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
