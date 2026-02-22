@@ -6,11 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Calendar, Moon, Sun, Shuffle, Copy, Download, Users, RotateCcw } from 'lucide-react';
-import { useTheme } from '@/hooks/useTheme';
+import { Shuffle, Copy, Download, Users, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import AppHeader from '@/components/AppHeader';
 
 // ── Fisher-Yates Shuffle ──────────────────────────
 function fisherYatesShuffle<T>(arr: T[]): T[] {
@@ -96,7 +96,6 @@ function generateWithPairAvoidance(names: string[], groupCount: number, attempts
 
 // ── Component ─────────────────────────────────────
 const GroupGenerator = () => {
-  const { theme, toggle } = useTheme();
   const [namesInput, setNamesInput] = useState('');
   const [mode, setMode] = useState<'groups' | 'perGroup'>('groups');
   const [count, setCount] = useState(2);
@@ -203,22 +202,7 @@ const GroupGenerator = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-lg">
-        <nav className="container mx-auto flex h-14 items-center justify-between px-4" aria-label="Group generator navigation">
-          <Link to="/" className="flex items-center gap-2 font-bold text-lg" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
-            <span>ClassGrid</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/builder">Schedule Builder</Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
+      <AppHeader />
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
