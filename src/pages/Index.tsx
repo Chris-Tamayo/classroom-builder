@@ -9,6 +9,7 @@ const features = [
   { icon: Download, title: 'Export & Print', desc: 'Download your schedule as a PNG or PDF — perfect for your binder or phone.' },
   { icon: Share2, title: 'Share Instantly', desc: 'Generate a link to share your schedule with friends — no account needed.' },
   { icon: Shield, title: 'Private & Local', desc: 'Your data stays in your browser. No sign-up, no tracking, no cloud.' },
+  { icon: Zap, title: 'Group Generator', desc: 'Randomly split students into groups with drag-and-drop and pair history.' },
 ];
 
 const Index = () => {
@@ -28,6 +29,9 @@ const Index = () => {
             </Button>
             <Button asChild>
               <Link to="/builder">Create Schedule</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/groups">Group Generator</Link>
             </Button>
           </div>
         </nav>
