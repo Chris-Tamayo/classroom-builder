@@ -97,7 +97,7 @@ const Index = () => {
 
       <footer className="border-t py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} ClassGrid. Built for students, by students.</p>
+          <p>© {new Date().getFullYear()} ClassroomBuilder. Built for students, by students.</p>
         </div>
       </footer>
     </div>

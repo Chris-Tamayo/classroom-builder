@@ -23,7 +23,7 @@ function fisherYatesShuffle<T>(arr: T[]): T[] {
 }
 
 // ── Pair history helpers ──────────────────────────
-const PAIR_HISTORY_KEY = 'classgrid-pair-history';
+const PAIR_HISTORY_KEY = 'classroombuilder-pair-history';
 
 type PairSet = string[][];
 
@@ -99,11 +99,12 @@ const GroupGenerator = () => {
   const [namesInput, setNamesInput] = useState('');
   const [mode, setMode] = useState<'groups' | 'perGroup'>('groups');
   const [count, setCount] = useState(2);
+  const [countInput, setCountInput] = useState('2');
   const [groups, setGroups] = useState<string[][] | null>(null);
 
   // SEO meta tags
   useEffect(() => {
-    document.title = 'Random Group Generator — ClassGrid | Free Student Group Maker';
+    document.title = 'Random Group Generator — ClassroomBuilder | Free Student Group Maker';
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
       if (!el) {
@@ -115,15 +116,15 @@ const GroupGenerator = () => {
     };
     setMeta('description', 'Free random group generator for teachers and students. Split class lists into groups instantly with drag-and-drop, pair history, and CSV export. No sign-up required.');
     setMeta('keywords', 'random group generator, student group maker, classroom groups, team generator, group randomizer, teacher tools');
-    setMeta('og:title', 'Random Group Generator — ClassGrid', 'property');
+    setMeta('og:title', 'Random Group Generator — ClassroomBuilder', 'property');
     setMeta('og:description', 'Split student names into random groups instantly. Drag-and-drop, pair avoidance, CSV export — 100% free.', 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('og:url', 'https://classgrid.app/groups', 'property');
-    setMeta('twitter:title', 'Random Group Generator — ClassGrid');
+    setMeta('og:url', 'https://classroombuilder.com/groups', 'property');
+    setMeta('twitter:title', 'Random Group Generator — ClassroomBuilder');
     setMeta('twitter:description', 'Split student names into random groups instantly. Drag-and-drop, pair avoidance, CSV export — 100% free.');
 
     return () => {
-      document.title = 'ClassGrid — Free Student Schedule Maker';
+      document.title = 'ClassroomBuilder — Free Student Schedule Maker';
     };
   }, []);
 
@@ -135,7 +136,8 @@ const GroupGenerator = () => {
   const computeGroupCount = useCallback(() => {
     if (names.length === 0) return 0;
     if (mode === 'groups') return Math.min(count, names.length);
-    return Math.max(1, Math.ceil(names.length / count));
+    // "perGroup" means least amount per group — use floor to make fewer, larger groups
+    return Math.max(1, Math.floor(names.length / count));
   }, [names.length, mode, count]);
 
   const handleGenerate = () => {
@@ -249,15 +251,24 @@ const GroupGenerator = () => {
 
                 <div className="space-y-1">
                   <Label htmlFor="count-input" className="text-xs text-muted-foreground">
-                    {mode === 'groups' ? 'Number of groups' : 'People per group'}
+                    {mode === 'groups' ? 'Number of groups' : 'Least people per group'}
                   </Label>
                   <Input
                     id="count-input"
                     type="number"
                     min={1}
                     max={names.length || 100}
-                    value={count}
-                    onChange={e => setCount(Math.max(1, parseInt(e.target.value) || 1))}
+                    value={countInput}
+                    onChange={e => setCountInput(e.target.value)}
+                    onBlur={() => {
+                      const parsed = parseInt(countInput);
+                      if (!parsed || parsed < 1 || isNaN(parsed)) {
+                        setCountInput(String(count));
+                      } else {
+                        setCount(parsed);
+                        setCountInput(String(parsed));
+                      }
+                    }}
                   />
                 </div>
 
@@ -345,6 +356,34 @@ const GroupGenerator = () => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* SEO Informational Content */}
+          <section className="mt-16 space-y-8 text-sm text-muted-foreground leading-relaxed" aria-label="About the random group generator">
+            <div>
+              <h2 className="text-xl font-semibold text-foreground mb-2">How does the Random Group Generator work?</h2>
+              <p>
+                Paste your list of student names — one per line — choose how many groups you want (or the minimum number of people per group), and click <strong>Generate Groups</strong>. The tool uses a <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 hover:text-primary/80">Fisher-Yates shuffle</a> to guarantee every arrangement is equally likely, then distributes students evenly across groups.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-foreground mb-2">Smart pair avoidance</h2>
+              <p>
+                Tired of the same students always ending up together? ClassroomBuilder remembers your last 20 groupings and actively avoids repeating pairs. Clear the history any time with the <strong>Clear pair history</strong> button.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-foreground mb-2">Drag-and-drop & export</h2>
+              <p>
+                After generating, drag any name between groups to fine-tune. When you're happy, copy the results to your clipboard or download them as a CSV file — perfect for pasting into Google Sheets, Excel, or your LMS.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-foreground mb-2">100% free & private</h2>
+              <p>
+                No account required. Your data never leaves your browser — names are processed entirely on your device using JavaScript. ClassroomBuilder is built for teachers, professors, and team leads who need fast, fair, random groups.
+              </p>
+            </div>
+          </section>
         </motion.div>
       </main>
     </div>
