@@ -40,7 +40,7 @@ const AppHeader = ({ actions }: AppHeaderProps) => {
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
-          <span>ClassGrid</span>
+          <span>ClassroomBuilder</span>
         </Link>
 
         <div className="flex items-center gap-2">
