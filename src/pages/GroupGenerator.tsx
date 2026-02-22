@@ -102,6 +102,32 @@ const GroupGenerator = () => {
   const [count, setCount] = useState(2);
   const [groups, setGroups] = useState<string[][] | null>(null);
 
+  // SEO meta tags
+  useEffect(() => {
+    document.title = 'Random Group Generator — ClassGrid | Free Student Group Maker';
+    const setMeta = (name: string, content: string, attr = 'name') => {
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+    setMeta('description', 'Free random group generator for teachers and students. Split class lists into groups instantly with drag-and-drop, pair history, and CSV export. No sign-up required.');
+    setMeta('keywords', 'random group generator, student group maker, classroom groups, team generator, group randomizer, teacher tools');
+    setMeta('og:title', 'Random Group Generator — ClassGrid', 'property');
+    setMeta('og:description', 'Split student names into random groups instantly. Drag-and-drop, pair avoidance, CSV export — 100% free.', 'property');
+    setMeta('og:type', 'website', 'property');
+    setMeta('og:url', 'https://classgrid.app/groups', 'property');
+    setMeta('twitter:title', 'Random Group Generator — ClassGrid');
+    setMeta('twitter:description', 'Split student names into random groups instantly. Drag-and-drop, pair avoidance, CSV export — 100% free.');
+
+    return () => {
+      document.title = 'ClassGrid — Free Student Schedule Maker';
+    };
+  }, []);
+
   const names = namesInput
     .split('\n')
     .map(n => n.trim())
@@ -196,18 +222,18 @@ const GroupGenerator = () => {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-          <div className="text-center mb-8">
+          <header className="text-center mb-8">
             <div className="inline-flex items-center gap-2 mb-3">
-              <Users className="h-8 w-8 text-primary" />
+              <Users className="h-8 w-8 text-primary" aria-hidden="true" />
               <h1 className="text-3xl font-bold sm:text-4xl">Random Group Generator</h1>
             </div>
             <p className="text-muted-foreground max-w-lg mx-auto">
               Paste student names, pick your group settings, and generate random groups instantly. Drag and drop to swap members.
             </p>
-          </div>
+          </header>
 
           {/* Input Section */}
-          <div className="grid md:grid-cols-[1fr_280px] gap-6 mb-8">
+          <section aria-label="Group configuration" className="grid md:grid-cols-[1fr_280px] gap-6 mb-8">
             <div className="space-y-2">
               <Label htmlFor="names-input" className="text-sm font-medium">Student Names (one per line)</Label>
               <Textarea
@@ -260,7 +286,7 @@ const GroupGenerator = () => {
                 </Button>
               </CardContent>
             </Card>
-          </div>
+          </section>
 
           {/* Results */}
           <AnimatePresence mode="wait">
