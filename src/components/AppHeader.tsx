@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Calendar, Moon, Sun, Menu } from 'lucide-react';
+import { GraduationCap, Moon, Sun, Menu } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import {
   DropdownMenu,
@@ -39,7 +39,7 @@ const AppHeader = ({ actions }: AppHeaderProps) => {
           className="flex items-center gap-2 font-bold text-lg"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
+          <GraduationCap className="h-5 w-5 text-primary" aria-hidden="true" />
           <span>ClassroomBuilder</span>
         </Link>
 
