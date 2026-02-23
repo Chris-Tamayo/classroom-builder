@@ -16,7 +16,7 @@ interface NavItem {
 
 const tools: NavItem[] = [
   { label: 'Schedule Builder', to: '/builder' },
-  { label: 'Group Generator', to: '/groups' },
+  { label: 'Group Generator', to: '/random-group-generator' },
 ];
 
 interface AppHeaderProps {
