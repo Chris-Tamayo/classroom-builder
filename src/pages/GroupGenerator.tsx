@@ -124,7 +124,7 @@ const GroupGenerator = () => {
     setMeta('twitter:description', 'Split student names into random groups instantly. Drag-and-drop, pair avoidance, CSV export — 100% free.');
 
     return () => {
-      document.title = 'ClassroomBuilder — Free Student Schedule Maker';
+      document.title = 'ClassroomBuilder — Free Tools for Students & Teachers';
     };
   }, []);
 
