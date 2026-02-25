@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Calendar, Plus, Download, Share2, Trash2 } from 'lucide-react';
@@ -14,6 +14,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AppHeader from '@/components/AppHeader';
 
 const Builder = () => {
+  useEffect(() => {
+    document.title = 'Schedule Builder — ClassroomBuilder | Free Weekly Class Schedule Maker';
+    const setMeta = (name: string, content: string, attr = 'name') => {
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+    setMeta('description', 'Build a color-coded weekly class schedule in seconds. Export as PNG, share via link — free, no sign-up required.');
+    setMeta('og:title', 'Schedule Builder — ClassroomBuilder', 'property');
+    setMeta('og:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.', 'property');
+    setMeta('og:type', 'website', 'property');
+    setMeta('og:url', 'https://classroombuilder.com/builder', 'property');
+    setMeta('twitter:title', 'Schedule Builder — ClassroomBuilder');
+    setMeta('twitter:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.');
+  }, []);
   const { theme, toggle } = useTheme();
   const { classes, addClass, updateClass, deleteClass, clearAll } = useSchedule();
   const [showWeekend, setShowWeekend] = useState(false);
