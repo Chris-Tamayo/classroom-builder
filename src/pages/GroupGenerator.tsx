@@ -102,7 +102,7 @@ const GroupGenerator = () => {
 
   // SEO meta tags
   useEffect(() => {
-    document.title = 'Random Group Generator for Teachers — Free Student Group Maker | ClassroomBuilder';
+    document.title = 'Random Group Generator for Teachers (Free Student Group Maker)';
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
       if (!el) {
@@ -114,11 +114,11 @@ const GroupGenerator = () => {
     };
     setMeta('description', 'Free random group generator for teachers. Instantly split your class list into fair, randomized groups with smart pair avoidance, drag-and-drop editing, and CSV export. No sign-up required.');
     setMeta('keywords', 'random group generator for teachers, student group maker, classroom group generator, team generator for teachers, random group creator, group randomizer');
-    setMeta('og:title', 'Random Group Generator for Teachers — ClassroomBuilder', 'property');
+    setMeta('og:title', 'Random Group Generator for Teachers (Free Student Group Maker)', 'property');
     setMeta('og:description', 'Split student names into random groups instantly. Smart pair avoidance, drag-and-drop, CSV export — 100% free for teachers.', 'property');
     setMeta('og:type', 'website', 'property');
     setMeta('og:url', 'https://classroombuilder.com/random-group-generator', 'property');
-    setMeta('twitter:title', 'Random Group Generator for Teachers — ClassroomBuilder');
+    setMeta('twitter:title', 'Random Group Generator for Teachers (Free Student Group Maker)');
     setMeta('twitter:description', 'Split student names into random groups instantly. Smart pair avoidance, drag-and-drop, CSV export — 100% free for teachers.');
 
     return () => {
@@ -451,13 +451,22 @@ const GroupGenerator = () => {
                 ClassroomBuilder offers a growing set of free tools designed for teachers and students. Check out our other tools:
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Link to="/builder" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                <Link to="/classroom-schedule-maker" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
                   <h3 className="font-semibold text-foreground flex items-center gap-2">
                     Schedule Builder
                     <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                   </h3>
                   <p className="text-muted-foreground text-sm mt-1">
                     Build a color-coded weekly class schedule. Export as PNG or share via link — free, no sign-up required.
+                  </p>
+                </Link>
+                <Link to="/blog/how-to-randomly-group-students" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                  <h3 className="font-semibold text-foreground flex items-center gap-2">
+                    How to Randomly Group Students
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </h3>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    A teacher's guide to random grouping strategies that keep collaboration fresh and fair.
                   </p>
                 </Link>
               </div>

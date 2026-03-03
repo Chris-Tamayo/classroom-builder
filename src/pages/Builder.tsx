@@ -31,7 +31,7 @@ const Builder = () => {
     setMeta('og:title', 'Free Class Schedule Maker — ClassroomBuilder', 'property');
     setMeta('og:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.', 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('og:url', 'https://classroombuilder.com/builder', 'property');
+    setMeta('og:url', 'https://classroombuilder.com/classroom-schedule-maker', 'property');
     setMeta('twitter:title', 'Free Class Schedule Maker — ClassroomBuilder');
     setMeta('twitter:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.');
 
@@ -315,6 +315,15 @@ const Builder = () => {
                 </h3>
                 <p className="text-muted-foreground text-sm mt-1">
                   Split your class into fair, randomized groups with smart pair avoidance. Drag-and-drop editing and CSV export — free for teachers.
+                </p>
+              </Link>
+              <Link to="/blog/how-to-randomly-group-students" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                <h3 className="font-semibold text-foreground flex items-center gap-2">
+                  How to Randomly Group Students
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                </h3>
+                <p className="text-muted-foreground text-sm mt-1">
+                  A teacher's guide to random grouping strategies that keep collaboration fresh and fair.
                 </p>
               </Link>
             </div>
