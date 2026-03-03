@@ -10,7 +10,7 @@ const tools = [
     icon: Calendar,
     title: 'Schedule Builder',
     desc: 'Create a color-coded weekly class schedule. Export as PNG, share via link — no sign-up needed.',
-    to: '/builder',
+    to: '/classroom-schedule-maker',
     cta: 'Build a Schedule',
   },
   {
@@ -157,7 +157,7 @@ const Index = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="rounded-full px-8 h-12 text-base shadow-lg shadow-primary/25">
-                <Link to="/builder">
+                <Link to="/classroom-schedule-maker">
                   <Calendar className="mr-2 h-5 w-5" aria-hidden="true" /> Build a Schedule
                 </Link>
               </Button>
