@@ -121,7 +121,25 @@ const GroupGenerator = () => {
     setMeta('twitter:title', 'Random Group Generator for Teachers (Free Student Group Maker)');
     setMeta('twitter:description', 'Split student names into random groups instantly. Smart pair avoidance, drag-and-drop, CSV export — 100% free for teachers.');
 
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is this random group generator really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no hidden fees, no sign-up, and no ads. ClassroomBuilder is built for teachers who need fast, reliable tools without the hassle." } },
+        { "@type": "Question", "name": "Is my student data safe?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All names are processed entirely in your browser using JavaScript. Nothing is sent to a server — your student data stays on your device and is never stored or shared." } },
+        { "@type": "Question", "name": "How does pair avoidance work?", "acceptedAnswer": { "@type": "Answer", "text": "Each time you generate groups, the tool saves which students were paired together in your browser's local storage (up to the last 20 sessions). On subsequent generations, it runs multiple shuffle attempts and picks the arrangement with the fewest repeated pairs." } },
+        { "@type": "Question", "name": "Can I edit groups after generating?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! After generating, you can drag and drop any student between groups. This is useful for accommodating special needs, separating certain students, or balancing skill levels." } },
+        { "@type": "Question", "name": "How many students can I add?", "acceptedAnswer": { "@type": "Answer", "text": "There is no hard limit. The tool works well with typical class sizes (10–40 students) and can handle much larger lists. Performance remains fast since everything runs locally." } },
+        { "@type": "Question", "name": "Can I use this for teams, not just classrooms?", "acceptedAnswer": { "@type": "Answer", "text": "Of course! While designed for teachers, this random group generator works great for team-building events, workshop breakout groups, sports teams, or any situation where you need to split people into random groups." } },
+        { "@type": "Question", "name": "What's the difference between 'Number of groups' and 'People per group'?", "acceptedAnswer": { "@type": "Answer", "text": "'Number of groups' lets you set exactly how many groups you want. 'People per group' lets you set the minimum group size, and the tool calculates how many groups that creates." } }
+      ]
+    });
+    document.head.appendChild(ld);
+
     return () => {
+      document.head.removeChild(ld);
       document.title = 'ClassroomBuilder — Free Tools for Teachers & Students';
     };
   }, []);
