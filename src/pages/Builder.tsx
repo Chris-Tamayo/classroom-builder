@@ -35,7 +35,24 @@ const Builder = () => {
     setMeta('twitter:title', 'Free Class Schedule Maker — ClassroomBuilder');
     setMeta('twitter:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.');
 
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is this schedule maker free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No sign-up, no ads, no limits. Build as many schedules as you want." } },
+        { "@type": "Question", "name": "Will my schedule be saved?", "acceptedAnswer": { "@type": "Answer", "text": "Your schedule is saved in your browser's local storage, so it persists between visits on the same device. You can also export a shareable link to access it anywhere." } },
+        { "@type": "Question", "name": "Can I share my schedule with someone?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Click the Share button to copy a link that contains your entire schedule. Anyone who opens the link will see your schedule — no account needed on their end either." } },
+        { "@type": "Question", "name": "How do I print my schedule?", "acceptedAnswer": { "@type": "Answer", "text": "Click Export to download your schedule as a high-resolution PNG image. You can then print it directly or paste it into a document." } },
+        { "@type": "Question", "name": "Does it detect schedule conflicts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. If two classes overlap on the same day, the tool highlights them and shows a warning banner so you can resolve the conflict." } },
+        { "@type": "Question", "name": "Can I add weekend classes?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — check the 'Show weekends' box to add Saturday and Sunday columns to your schedule grid." } }
+      ]
+    });
+    document.head.appendChild(ld);
+
     return () => {
+      document.head.removeChild(ld);
       document.title = 'ClassroomBuilder — Free Tools for Teachers & Students';
     };
   }, []);
