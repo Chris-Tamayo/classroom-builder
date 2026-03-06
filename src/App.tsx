@@ -8,6 +8,7 @@ import Builder from "./pages/Builder";
 import GroupGenerator from "./pages/GroupGenerator";
 import HowToGroupStudents from "./pages/HowToGroupStudents";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -17,12 +18,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/classroom-schedule-maker" element={<Builder />} />
           <Route path="/builder" element={<Navigate to="/classroom-schedule-maker" replace />} />
           <Route path="/random-group-generator" element={<GroupGenerator />} />
-          <Route path="/blog/how-to-randomly-group-students" element={<HowToGroupStudents />} />
+          <Route path="/blog/randomly-group-students" element={<HowToGroupStudents />} />
+          <Route path="/blog/how-to-randomly-group-students" element={<Navigate to="/blog/randomly-group-students" replace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

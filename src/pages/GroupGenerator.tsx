@@ -478,7 +478,7 @@ const GroupGenerator = () => {
                     Build a color-coded weekly class schedule. Export as PNG or share via link — free, no sign-up required.
                   </p>
                 </Link>
-                <Link to="/blog/how-to-randomly-group-students" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                <Link to="/blog/randomly-group-students" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
                   <h3 className="font-semibold text-foreground flex items-center gap-2">
                     How to Randomly Group Students
                     <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
