@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     mode === "production" &&
       prerender({
+        staticDir: path.resolve(__dirname, "dist"),
         routes: [
           "/",
           "/random-group-generator",
