@@ -117,7 +117,7 @@ const GroupGenerator = () => {
     setMeta('og:title', 'Random Group Generator for Teachers (Free Student Group Maker)', 'property');
     setMeta('og:description', 'Split student names into random groups instantly. Smart pair avoidance, drag-and-drop, CSV export — 100% free for teachers.', 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('og:url', 'https://classroombuilder.com/random-group-generator', 'property');
+    setMeta('og:url', 'https://www.classroombuilder.com/random-group-generator', 'property');
     setMeta('twitter:title', 'Random Group Generator for Teachers (Free Student Group Maker)');
     setMeta('twitter:description', 'Split student names into random groups instantly. Smart pair avoidance, drag-and-drop, CSV export — 100% free for teachers.');
 

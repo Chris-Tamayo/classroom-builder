@@ -47,7 +47,7 @@ const Index = () => {
     setMeta('og:title', 'ClassroomBuilder — Free Tools for Students & Teachers', 'property');
     setMeta('og:description', 'Free classroom tools for students and teachers. Build schedules, generate groups, and more — no sign-up required.', 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('og:url', 'https://classroombuilder.com', 'property');
+    setMeta('og:url', 'https://www.classroombuilder.com', 'property');
     setMeta('twitter:title', 'ClassroomBuilder — Free Tools for Students & Teachers');
     setMeta('twitter:description', 'Free classroom tools for students and teachers. Build schedules, generate groups, and more — no sign-up required.');
   }, []);

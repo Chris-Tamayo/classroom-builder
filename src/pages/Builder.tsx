@@ -31,7 +31,7 @@ const Builder = () => {
     setMeta('og:title', 'Free Class Schedule Maker — ClassroomBuilder', 'property');
     setMeta('og:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.', 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('og:url', 'https://classroombuilder.com/classroom-schedule-maker', 'property');
+    setMeta('og:url', 'https://www.classroombuilder.com/classroom-schedule-maker', 'property');
     setMeta('twitter:title', 'Free Class Schedule Maker — ClassroomBuilder');
     setMeta('twitter:description', 'Build a color-coded weekly class schedule in seconds. Export, share, and print — 100% free.');
 
