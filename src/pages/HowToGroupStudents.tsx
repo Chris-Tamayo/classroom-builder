@@ -20,7 +20,7 @@ const HowToGroupStudents = () => {
     setMeta('og:title', 'How to Randomly Group Students in the Classroom', 'property');
     setMeta('og:description', 'A teacher\'s guide to random grouping strategies that keep collaboration fresh and fair.', 'property');
     setMeta('og:type', 'article', 'property');
-    setMeta('og:url', 'https://www.classroombuilder.com/blog/how-to-randomly-group-students', 'property');
+    setMeta('og:url', 'https://www.classroombuilder.com/blog/randomly-group-students', 'property');
     setMeta('twitter:title', 'How to Randomly Group Students in the Classroom');
     setMeta('twitter:description', 'A teacher\'s guide to random grouping strategies that keep collaboration fresh and fair.');
 
