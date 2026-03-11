@@ -17,6 +17,7 @@ interface NavItem {
 const tools: NavItem[] = [
   { label: 'Schedule Builder', to: '/classroom-schedule-maker' },
   { label: 'Group Generator', to: '/random-group-generator' },
+  { label: 'Name Picker', to: '/random-name-picker' },
 ];
 
 interface AppHeaderProps {

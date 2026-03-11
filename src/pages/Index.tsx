@@ -20,6 +20,13 @@ const tools = [
     to: '/random-group-generator',
     cta: 'Generate Groups',
   },
+  {
+    icon: Dices,
+    title: 'Name Picker',
+    desc: 'Randomly pick a student from your class list with a fun spin animation. Great for participation and games.',
+    to: '/random-name-picker',
+    cta: 'Pick a Name',
+  },
 ];
 
 const features = [
