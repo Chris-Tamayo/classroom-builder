@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Calendar, Users, Download, Palette, Share2, Zap, Shield, ArrowRight } from 'lucide-react';
+import { Calendar, Users, Dices, Download, Palette, Share2, Zap, Shield, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import AppHeader from '@/components/AppHeader';
 import { useEffect } from 'react';
