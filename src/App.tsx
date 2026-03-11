@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Builder from "./pages/Builder";
 import GroupGenerator from "./pages/GroupGenerator";
+import RandomNamePicker from "./pages/RandomNamePicker";
 import HowToGroupStudents from "./pages/HowToGroupStudents";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
