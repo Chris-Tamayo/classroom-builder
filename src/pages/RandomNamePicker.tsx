@@ -202,11 +202,11 @@ const RandomNamePicker = () => {
   }, [rawNames, removed, parseNames]);
 
   const copyResult = useCallback(() => {
-    if (pickedName) {
-      navigator.clipboard.writeText(pickedName);
+    if (pickedNames.length > 0) {
+      navigator.clipboard.writeText(pickedNames.join('\n'));
       toast.success('Copied to clipboard');
     }
-  }, [pickedName]);
+  }, [pickedNames]);
 
   const handleCSVImport = useCallback(() => {
     const input = document.createElement('input');
