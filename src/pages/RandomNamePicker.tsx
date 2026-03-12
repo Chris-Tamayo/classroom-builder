@@ -72,7 +72,7 @@ const RandomNamePicker = () => {
 
   // SEO meta tags
   useEffect(() => {
-    document.title = 'Random Name Picker for Teachers – Free Student Name Picker';
+    document.title = 'Random Name Picker for Teachers (Free Student Picker Tool)';
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
       if (!el) {
@@ -84,11 +84,11 @@ const RandomNamePicker = () => {
     };
     setMeta('description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random. Perfect for classroom participation, presentations, and games.');
     setMeta('keywords', 'random name picker, student name picker, classroom name picker, random student selector, teacher tools');
-    setMeta('og:title', 'Random Name Picker for Teachers – Free Student Name Picker', 'property');
+    setMeta('og:title', 'Random Name Picker for Teachers (Free Student Picker Tool)', 'property');
     setMeta('og:description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random.', 'property');
     setMeta('og:type', 'website', 'property');
     setMeta('og:url', 'https://www.classroombuilder.com/random-name-picker', 'property');
-    setMeta('twitter:title', 'Random Name Picker for Teachers – Free Student Name Picker');
+    setMeta('twitter:title', 'Random Name Picker for Teachers (Free Student Picker Tool)');
     setMeta('twitter:description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random.');
 
     // JSON-LD
@@ -246,21 +246,17 @@ const RandomNamePicker = () => {
 
       <main className="container mx-auto px-4 pt-24 pb-16 max-w-3xl">
         {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-10"
-        >
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
-            Random Name Picker for the Classroom
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            Paste your class list below and instantly pick a student at random. Perfect for classroom
-            participation, presentations, group activities, and games. All data stays in your browser — no
-            accounts, no tracking.
-          </p>
-        </motion.div>
+          <header className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <Dices className="h-8 w-8 text-primary" aria-hidden="true" />
+              <h1 className="text-3xl font-bold sm:text-4xl">Random Name Picker for Teachers</h1>
+            </div>
+            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Paste your class list below and instantly pick a student at random. Perfect for classroom
+              participation, presentations, group activities, and games. All data stays in your browser — no
+              accounts, no tracking.
+            </p>
+          </header>
 
         {/* Tool */}
         <Card className="mb-8">
