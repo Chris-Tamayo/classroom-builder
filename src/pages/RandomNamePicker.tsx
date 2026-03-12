@@ -36,14 +36,19 @@ function saveNames(raw: string) {
 const SPIN_DURATION = 1600; // ms
 const SPIN_INTERVAL = 60; // ms between name flashes
 
+const EXAMPLE_NAMES = `Emma\nLiam\nSophia\nNoah\nAva\nOliver\nIsabella\nLucas\nMia\nElijah`;
+
+const PICK_COUNTS = [1, 2, 3, 5];
+
 const RandomNamePicker = () => {
   const [rawNames, setRawNames] = useState(loadNames);
   const [pool, setPool] = useState<string[]>([]);
-  const [pickedName, setPickedName] = useState<string | null>(null);
+  const [pickedNames, setPickedNames] = useState<string[]>([]);
   const [removed, setRemoved] = useState<string[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinDisplay, setSpinDisplay] = useState<string | null>(null);
   const [wheelMode, setWheelMode] = useState(true);
+  const [pickCount, setPickCount] = useState(1);
   const spinRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Parse names from textarea
@@ -133,14 +138,18 @@ const RandomNamePicker = () => {
     };
   }, []);
 
+  const actualPickCount = Math.min(pickCount, pool.length);
+
   const pickRandom = useCallback(() => {
     if (pool.length === 0) {
       toast.error('No names in the pool');
       return;
     }
 
-    if (wheelMode) {
-      // Spin animation
+    const count = Math.min(pickCount, pool.length);
+
+    if (wheelMode && count === 1) {
+      // Spin animation (single pick only)
       setIsSpinning(true);
       const shuffled = fisherYatesShuffle(pool);
       let tick = 0;
@@ -153,29 +162,34 @@ const RandomNamePicker = () => {
 
         if (tick >= totalTicks) {
           if (spinRef.current) clearInterval(spinRef.current);
-          const winner = shuffled[0];
           setSpinDisplay(null);
-          setPickedName(winner);
+          setPickedNames([shuffled[0]]);
           setIsSpinning(false);
         }
       }, SPIN_INTERVAL);
     } else {
       const shuffled = fisherYatesShuffle(pool);
-      setPickedName(shuffled[0]);
+      setPickedNames(shuffled.slice(0, count));
     }
-  }, [pool, wheelMode]);
+  }, [pool, wheelMode, pickCount]);
 
   const removePicked = useCallback(() => {
-    if (pickedName) {
-      setRemoved((prev) => [...prev, pickedName]);
-      setPickedName(null);
-      toast.success(`${pickedName} removed from pool`);
+    if (pickedNames.length > 0) {
+      setRemoved((prev) => [...prev, ...pickedNames]);
+      setPickedNames([]);
+      toast.success(`${pickedNames.length === 1 ? pickedNames[0] : `${pickedNames.length} names`} removed from pool`);
     }
-  }, [pickedName]);
+  }, [pickedNames]);
+
+  const removeSinglePicked = useCallback((name: string) => {
+    setRemoved((prev) => [...prev, name]);
+    setPickedNames((prev) => prev.filter((n) => n !== name));
+    toast.success(`${name} removed from pool`);
+  }, []);
 
   const resetAll = useCallback(() => {
     setRemoved([]);
-    setPickedName(null);
+    setPickedNames([]);
     setSpinDisplay(null);
     toast.success('List reset — all names restored');
   }, []);
@@ -188,11 +202,11 @@ const RandomNamePicker = () => {
   }, [rawNames, removed, parseNames]);
 
   const copyResult = useCallback(() => {
-    if (pickedName) {
-      navigator.clipboard.writeText(pickedName);
+    if (pickedNames.length > 0) {
+      navigator.clipboard.writeText(pickedNames.join('\n'));
       toast.success('Copied to clipboard');
     }
-  }, [pickedName]);
+  }, [pickedNames]);
 
   const handleCSVImport = useCallback(() => {
     const input = document.createElement('input');
@@ -212,7 +226,7 @@ const RandomNamePicker = () => {
             .filter(Boolean);
           setRawNames(names.join('\n'));
           setRemoved([]);
-          setPickedName(null);
+          setPickedNames([]);
           toast.success(`${names.length} names imported`);
         }
       };
@@ -253,9 +267,26 @@ const RandomNamePicker = () => {
           <CardContent className="p-6 space-y-6">
             {/* Input */}
             <div>
-              <label htmlFor="names-input" className="block text-sm font-medium mb-2">
-                Student Names <span className="text-muted-foreground">(one per line or comma-separated)</span>
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label htmlFor="names-input" className="block text-sm font-medium">
+                  Student Names <span className="text-muted-foreground">(one per line or comma-separated)</span>
+                </label>
+                {!rawNames.trim() && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs text-primary"
+                    onClick={() => {
+                      setRawNames(EXAMPLE_NAMES);
+                      setRemoved([]);
+                      setPickedNames([]);
+                      toast.success('Example class loaded');
+                    }}
+                  >
+                    Load Example Class
+                  </Button>
+                )}
+              </div>
               <Textarea
                 id="names-input"
                 placeholder={"Alice Johnson\nBob Smith\nCarla Davis\n..."}
@@ -263,7 +294,7 @@ const RandomNamePicker = () => {
                 onChange={(e) => {
                   setRawNames(e.target.value);
                   setRemoved([]);
-                  setPickedName(null);
+                  setPickedNames([]);
                 }}
                 rows={6}
                 className="font-mono text-sm"
@@ -278,6 +309,23 @@ const RandomNamePicker = () => {
               </div>
             </div>
 
+            {/* Pick count */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-medium text-muted-foreground">Pick:</span>
+              {PICK_COUNTS.map((n) => (
+                <Button
+                  key={n}
+                  variant={pickCount === n ? 'default' : 'outline'}
+                  size="sm"
+                  className="min-w-[3rem]"
+                  onClick={() => setPickCount(n)}
+                  disabled={n > availableCount}
+                >
+                  {n}
+                </Button>
+              ))}
+            </div>
+
             {/* Controls */}
             <div className="flex flex-wrap gap-2">
               <Button
@@ -287,7 +335,7 @@ const RandomNamePicker = () => {
                 size="lg"
               >
                 <Dices className="h-5 w-5 mr-2" />
-                {isSpinning ? 'Picking...' : 'Pick a Random Name'}
+                {isSpinning ? 'Picking...' : actualPickCount > 1 ? `Pick ${actualPickCount} Random Names` : 'Pick a Random Name'}
               </Button>
 
               <Button variant="outline" size="sm" onClick={shufflePool} disabled={availableCount === 0}>
@@ -309,9 +357,9 @@ const RandomNamePicker = () => {
 
             {/* Result display */}
             <AnimatePresence mode="wait">
-              {(pickedName || spinDisplay) && (
+              {(pickedNames.length > 0 || spinDisplay) && (
                 <motion.div
-                  key={spinDisplay || pickedName}
+                  key={spinDisplay || pickedNames.join(',')}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -322,13 +370,13 @@ const RandomNamePicker = () => {
                     <p className="text-3xl md:text-5xl font-bold text-primary animate-pulse">
                       {spinDisplay}
                     </p>
-                  ) : (
+                  ) : pickedNames.length === 1 ? (
                     <>
                       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
                         Selected Student
                       </p>
                       <p className="text-4xl md:text-6xl font-bold text-primary mb-6">
-                        {pickedName}
+                        {pickedNames[0]}
                       </p>
                       <div className="flex items-center justify-center gap-2 flex-wrap">
                         <Button variant="outline" size="sm" onClick={copyResult}>
@@ -338,6 +386,36 @@ const RandomNamePicker = () => {
                           <UserX className="h-4 w-4 mr-1" /> Remove from Pool
                         </Button>
                         <Button size="sm" onClick={pickRandom} disabled={availableCount <= 1}>
+                          <Dices className="h-4 w-4 mr-1" /> Pick Again
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+                        Selected Students ({pickedNames.length})
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        {pickedNames.map((name, i) => (
+                          <div key={name} className="flex items-center justify-center gap-2">
+                            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary/20 text-primary text-xs font-bold">
+                              {i + 1}
+                            </span>
+                            <span className="text-2xl md:text-4xl font-bold text-primary">{name}</span>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive" onClick={() => removeSinglePicked(name)}>
+                              <UserX className="h-3.5 w-3.5" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-center gap-2 flex-wrap">
+                        <Button variant="outline" size="sm" onClick={copyResult}>
+                          <Copy className="h-4 w-4 mr-1" /> Copy All
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={removePicked}>
+                          <UserX className="h-4 w-4 mr-1" /> Remove All from Pool
+                        </Button>
+                        <Button size="sm" onClick={pickRandom} disabled={availableCount <= pickCount}>
                           <Dices className="h-4 w-4 mr-1" /> Pick Again
                         </Button>
                       </div>
