@@ -469,6 +469,15 @@ const GroupGenerator = () => {
                 ClassroomBuilder offers a growing set of free tools designed for teachers and students. Check out our other tools:
               </p>
               <div className="grid sm:grid-cols-2 gap-4">
+                <Link to="/random-name-picker" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                  <h3 className="font-semibold text-foreground flex items-center gap-2">
+                    Random Name Picker
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </h3>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    Randomly pick one or more students from your class list with a fun spin animation. Great for participation and games.
+                  </p>
+                </Link>
                 <Link to="/classroom-schedule-maker" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
                   <h3 className="font-semibold text-foreground flex items-center gap-2">
                     Schedule Builder
@@ -476,15 +485,6 @@ const GroupGenerator = () => {
                   </h3>
                   <p className="text-muted-foreground text-sm mt-1">
                     Build a color-coded weekly class schedule. Export as PNG or share via link — free, no sign-up required.
-                  </p>
-                </Link>
-                <Link to="/blog/randomly-group-students" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
-                  <h3 className="font-semibold text-foreground flex items-center gap-2">
-                    How to Randomly Group Students
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </h3>
-                  <p className="text-muted-foreground text-sm mt-1">
-                    A teacher's guide to random grouping strategies that keep collaboration fresh and fair.
                   </p>
                 </Link>
               </div>
