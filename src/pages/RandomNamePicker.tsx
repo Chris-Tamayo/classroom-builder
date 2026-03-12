@@ -357,9 +357,9 @@ const RandomNamePicker = () => {
 
             {/* Result display */}
             <AnimatePresence mode="wait">
-              {(pickedName || spinDisplay) && (
+              {(pickedNames.length > 0 || spinDisplay) && (
                 <motion.div
-                  key={spinDisplay || pickedName}
+                  key={spinDisplay || pickedNames.join(',')}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -370,13 +370,13 @@ const RandomNamePicker = () => {
                     <p className="text-3xl md:text-5xl font-bold text-primary animate-pulse">
                       {spinDisplay}
                     </p>
-                  ) : (
+                  ) : pickedNames.length === 1 ? (
                     <>
                       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
                         Selected Student
                       </p>
                       <p className="text-4xl md:text-6xl font-bold text-primary mb-6">
-                        {pickedName}
+                        {pickedNames[0]}
                       </p>
                       <div className="flex items-center justify-center gap-2 flex-wrap">
                         <Button variant="outline" size="sm" onClick={copyResult}>
@@ -386,6 +386,36 @@ const RandomNamePicker = () => {
                           <UserX className="h-4 w-4 mr-1" /> Remove from Pool
                         </Button>
                         <Button size="sm" onClick={pickRandom} disabled={availableCount <= 1}>
+                          <Dices className="h-4 w-4 mr-1" /> Pick Again
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+                        Selected Students ({pickedNames.length})
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        {pickedNames.map((name, i) => (
+                          <div key={name} className="flex items-center justify-center gap-2">
+                            <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-primary/20 text-primary text-xs font-bold">
+                              {i + 1}
+                            </span>
+                            <span className="text-2xl md:text-4xl font-bold text-primary">{name}</span>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive" onClick={() => removeSinglePicked(name)}>
+                              <UserX className="h-3.5 w-3.5" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-center gap-2 flex-wrap">
+                        <Button variant="outline" size="sm" onClick={copyResult}>
+                          <Copy className="h-4 w-4 mr-1" /> Copy All
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={removePicked}>
+                          <UserX className="h-4 w-4 mr-1" /> Remove All from Pool
+                        </Button>
+                        <Button size="sm" onClick={pickRandom} disabled={availableCount <= pickCount}>
                           <Dices className="h-4 w-4 mr-1" /> Pick Again
                         </Button>
                       </div>
