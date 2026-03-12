@@ -72,7 +72,7 @@ const RandomNamePicker = () => {
 
   // SEO meta tags
   useEffect(() => {
-    document.title = 'Random Name Picker for Teachers – Free Student Name Picker';
+    document.title = 'Random Name Picker for Teachers (Free Student Picker Tool)';
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
       if (!el) {
