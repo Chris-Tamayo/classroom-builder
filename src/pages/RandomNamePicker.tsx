@@ -138,14 +138,18 @@ const RandomNamePicker = () => {
     };
   }, []);
 
+  const actualPickCount = Math.min(pickCount, pool.length);
+
   const pickRandom = useCallback(() => {
     if (pool.length === 0) {
       toast.error('No names in the pool');
       return;
     }
 
-    if (wheelMode) {
-      // Spin animation
+    const count = Math.min(pickCount, pool.length);
+
+    if (wheelMode && count === 1) {
+      // Spin animation (single pick only)
       setIsSpinning(true);
       const shuffled = fisherYatesShuffle(pool);
       let tick = 0;
@@ -158,17 +162,16 @@ const RandomNamePicker = () => {
 
         if (tick >= totalTicks) {
           if (spinRef.current) clearInterval(spinRef.current);
-          const winner = shuffled[0];
           setSpinDisplay(null);
-          setPickedName(winner);
+          setPickedNames([shuffled[0]]);
           setIsSpinning(false);
         }
       }, SPIN_INTERVAL);
     } else {
       const shuffled = fisherYatesShuffle(pool);
-      setPickedName(shuffled[0]);
+      setPickedNames(shuffled.slice(0, count));
     }
-  }, [pool, wheelMode]);
+  }, [pool, wheelMode, pickCount]);
 
   const removePicked = useCallback(() => {
     if (pickedName) {
