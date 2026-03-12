@@ -174,16 +174,22 @@ const RandomNamePicker = () => {
   }, [pool, wheelMode, pickCount]);
 
   const removePicked = useCallback(() => {
-    if (pickedName) {
-      setRemoved((prev) => [...prev, pickedName]);
-      setPickedName(null);
-      toast.success(`${pickedName} removed from pool`);
+    if (pickedNames.length > 0) {
+      setRemoved((prev) => [...prev, ...pickedNames]);
+      setPickedNames([]);
+      toast.success(`${pickedNames.length === 1 ? pickedNames[0] : `${pickedNames.length} names`} removed from pool`);
     }
-  }, [pickedName]);
+  }, [pickedNames]);
+
+  const removeSinglePicked = useCallback((name: string) => {
+    setRemoved((prev) => [...prev, name]);
+    setPickedNames((prev) => prev.filter((n) => n !== name));
+    toast.success(`${name} removed from pool`);
+  }, []);
 
   const resetAll = useCallback(() => {
     setRemoved([]);
-    setPickedName(null);
+    setPickedNames([]);
     setSpinDisplay(null);
     toast.success('List reset — all names restored');
   }, []);
