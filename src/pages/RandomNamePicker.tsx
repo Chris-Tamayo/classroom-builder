@@ -84,11 +84,11 @@ const RandomNamePicker = () => {
     };
     setMeta('description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random. Perfect for classroom participation, presentations, and games.');
     setMeta('keywords', 'random name picker, student name picker, classroom name picker, random student selector, teacher tools');
-    setMeta('og:title', 'Random Name Picker for Teachers – Free Student Name Picker', 'property');
+    setMeta('og:title', 'Random Name Picker for Teachers (Free Student Picker Tool)', 'property');
     setMeta('og:description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random.', 'property');
     setMeta('og:type', 'website', 'property');
     setMeta('og:url', 'https://www.classroombuilder.com/random-name-picker', 'property');
-    setMeta('twitter:title', 'Random Name Picker for Teachers – Free Student Name Picker');
+    setMeta('twitter:title', 'Random Name Picker for Teachers (Free Student Picker Tool)');
     setMeta('twitter:description', 'Free random name picker for teachers. Paste your class list and instantly pick a student at random.');
 
     // JSON-LD
