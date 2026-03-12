@@ -226,7 +226,7 @@ const RandomNamePicker = () => {
             .filter(Boolean);
           setRawNames(names.join('\n'));
           setRemoved([]);
-          setPickedName(null);
+          setPickedNames([]);
           toast.success(`${names.length} names imported`);
         }
       };
