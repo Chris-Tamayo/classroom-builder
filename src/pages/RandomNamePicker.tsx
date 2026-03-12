@@ -36,14 +36,19 @@ function saveNames(raw: string) {
 const SPIN_DURATION = 1600; // ms
 const SPIN_INTERVAL = 60; // ms between name flashes
 
+const EXAMPLE_NAMES = `Emma\nLiam\nSophia\nNoah\nAva\nOliver\nIsabella\nLucas\nMia\nElijah`;
+
+const PICK_COUNTS = [1, 2, 3, 5];
+
 const RandomNamePicker = () => {
   const [rawNames, setRawNames] = useState(loadNames);
   const [pool, setPool] = useState<string[]>([]);
-  const [pickedName, setPickedName] = useState<string | null>(null);
+  const [pickedNames, setPickedNames] = useState<string[]>([]);
   const [removed, setRemoved] = useState<string[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinDisplay, setSpinDisplay] = useState<string | null>(null);
   const [wheelMode, setWheelMode] = useState(true);
+  const [pickCount, setPickCount] = useState(1);
   const spinRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Parse names from textarea
