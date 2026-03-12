@@ -267,9 +267,26 @@ const RandomNamePicker = () => {
           <CardContent className="p-6 space-y-6">
             {/* Input */}
             <div>
-              <label htmlFor="names-input" className="block text-sm font-medium mb-2">
-                Student Names <span className="text-muted-foreground">(one per line or comma-separated)</span>
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label htmlFor="names-input" className="block text-sm font-medium">
+                  Student Names <span className="text-muted-foreground">(one per line or comma-separated)</span>
+                </label>
+                {!rawNames.trim() && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs text-primary"
+                    onClick={() => {
+                      setRawNames(EXAMPLE_NAMES);
+                      setRemoved([]);
+                      setPickedNames([]);
+                      toast.success('Example class loaded');
+                    }}
+                  >
+                    Load Example Class
+                  </Button>
+                )}
+              </div>
               <Textarea
                 id="names-input"
                 placeholder={"Alice Johnson\nBob Smith\nCarla Davis\n..."}
@@ -277,7 +294,7 @@ const RandomNamePicker = () => {
                 onChange={(e) => {
                   setRawNames(e.target.value);
                   setRemoved([]);
-                  setPickedName(null);
+                  setPickedNames([]);
                 }}
                 rows={6}
                 className="font-mono text-sm"
@@ -292,6 +309,23 @@ const RandomNamePicker = () => {
               </div>
             </div>
 
+            {/* Pick count */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm font-medium text-muted-foreground">Pick:</span>
+              {PICK_COUNTS.map((n) => (
+                <Button
+                  key={n}
+                  variant={pickCount === n ? 'default' : 'outline'}
+                  size="sm"
+                  className="min-w-[3rem]"
+                  onClick={() => setPickCount(n)}
+                  disabled={n > availableCount}
+                >
+                  {n}
+                </Button>
+              ))}
+            </div>
+
             {/* Controls */}
             <div className="flex flex-wrap gap-2">
               <Button
@@ -301,7 +335,7 @@ const RandomNamePicker = () => {
                 size="lg"
               >
                 <Dices className="h-5 w-5 mr-2" />
-                {isSpinning ? 'Picking...' : 'Pick a Random Name'}
+                {isSpinning ? 'Picking...' : actualPickCount > 1 ? `Pick ${actualPickCount} Random Names` : 'Pick a Random Name'}
               </Button>
 
               <Button variant="outline" size="sm" onClick={shufflePool} disabled={availableCount === 0}>
