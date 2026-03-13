@@ -160,13 +160,6 @@ const Builder = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm">
             Plan your perfect week with this free class schedule maker. Add your classes with times, days, locations, and instructor names — then see everything on a clean, color-coded weekly grid. Built for students registering for courses and teachers organizing their teaching load, this tool makes schedule planning visual and effortless. Export as PNG, share with a link, and catch time conflicts before they happen. No account needed.
           </p>
-          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 text-sm text-foreground">
-            <li>✓ Color-coded weekly schedule</li>
-            <li>✓ Detect class conflicts automatically</li>
-            <li>✓ Export schedule as PNG</li>
-            <li>✓ Share schedules with a link</li>
-            <li>✓ Works for students and teachers</li>
-          </ul>
         </header>
 
         {/* ─── Tool Section ─── */}
