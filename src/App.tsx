@@ -29,6 +29,7 @@ const App = () => (
           <Route path="/random-name-picker" element={<RandomNamePicker />} />
           <Route path="/blog/randomly-group-students" element={<HowToGroupStudents />} />
           <Route path="/blog/how-to-randomly-group-students" element={<Navigate to="/blog/randomly-group-students" replace />} />
+          <Route path="/blog/how-to-make-a-class-schedule" element={<HowToMakeClassSchedule />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
