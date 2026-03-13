@@ -24,7 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/classroom-schedule-maker" element={<Builder />} />
-          <Route path="/builder" element={<Navigate to="/classroom-schedule-maker" replace />} />
+          
           <Route path="/random-group-generator" element={<GroupGenerator />} />
           <Route path="/random-name-picker" element={<RandomNamePicker />} />
           <Route path="/blog/randomly-group-students" element={<HowToGroupStudents />} />
