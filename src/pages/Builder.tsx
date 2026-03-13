@@ -155,11 +155,18 @@ const Builder = () => {
         <header className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-3">
             <Calendar className="h-8 w-8 text-primary" aria-hidden="true" />
-            <h1 className="text-3xl font-bold sm:text-4xl">Free Class Schedule Maker</h1>
+            <h1 className="text-3xl font-bold sm:text-4xl">Free Class Schedule Maker (Weekly Student &amp; College Planner)</h1>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm">
             Plan your perfect week with this free class schedule maker. Add your classes with times, days, locations, and instructor names — then see everything on a clean, color-coded weekly grid. Built for students registering for courses and teachers organizing their teaching load, this tool makes schedule planning visual and effortless. Export as PNG, share with a link, and catch time conflicts before they happen. No account needed.
           </p>
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 text-sm text-foreground">
+            <li>✓ Color-coded weekly schedule</li>
+            <li>✓ Detect class conflicts automatically</li>
+            <li>✓ Export schedule as PNG</li>
+            <li>✓ Share schedules with a link</li>
+            <li>✓ Works for students and teachers</li>
+          </ul>
         </header>
 
         {/* ─── Tool Section ─── */}
@@ -273,6 +280,17 @@ const Builder = () => {
               <li><strong>PNG export & sharing:</strong> Download a clean image or share a link — perfect for printing, posting, or texting.</li>
               <li><strong>100% free & private:</strong> No account required. Your schedule is saved in your browser and never uploaded.</li>
             </ul>
+          </div>
+
+          {/* Schedule Builder / Creator / Generator cluster */}
+          <div>
+            <h2 className="text-xl font-semibold text-foreground mb-3">Build a Weekly Schedule in Seconds</h2>
+            <p className="mb-2">
+              This free schedule builder helps students and teachers quickly create a clear weekly class schedule. Instead of writing your timetable by hand, you can use the schedule creator to visually map out your classes, activities, and study time.
+            </p>
+            <p>
+              Many students use a schedule generator like this during course registration to test different class combinations before finalizing their semester schedule.
+            </p>
           </div>
 
           {/* FAQs */}
