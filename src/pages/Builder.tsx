@@ -106,7 +106,7 @@ const Builder = () => {
 
   const handleShare = () => {
     const data = btoa(JSON.stringify(classes));
-    const url = `${window.location.origin}/builder?s=${data}`;
+    const url = `${window.location.origin}/classroom-schedule-maker?s=${data}`;
     navigator.clipboard.writeText(url);
     toast.success('Shareable link copied to clipboard!');
   };
