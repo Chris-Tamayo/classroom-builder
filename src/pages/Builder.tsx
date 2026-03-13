@@ -282,6 +282,17 @@ const Builder = () => {
             </ul>
           </div>
 
+          {/* Schedule Builder / Creator / Generator cluster */}
+          <div>
+            <h2 className="text-xl font-semibold text-foreground mb-3">Build a Weekly Schedule in Seconds</h2>
+            <p className="mb-2">
+              This free schedule builder helps students and teachers quickly create a clear weekly class schedule. Instead of writing your timetable by hand, you can use the schedule creator to visually map out your classes, activities, and study time.
+            </p>
+            <p>
+              Many students use a schedule generator like this during course registration to test different class combinations before finalizing their semester schedule.
+            </p>
+          </div>
+
           {/* FAQs */}
           <div>
             <h2 className="text-xl font-semibold text-foreground mb-3">Frequently Asked Questions</h2>
