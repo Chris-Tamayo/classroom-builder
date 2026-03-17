@@ -104,7 +104,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.2 }}
                         className={cn(
-                          'absolute left-1 right-1 rounded-lg px-2 py-1 text-left cursor-pointer overflow-hidden transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
+                          'absolute left-1 right-1 rounded-lg px-1.5 py-1 text-left cursor-pointer overflow-visible transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
                           isConflict && 'ring-2 ring-destructive ring-offset-1'
                         )}
                         style={{

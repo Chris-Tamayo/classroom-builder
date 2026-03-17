@@ -76,11 +76,11 @@ export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormPr
       <div className="grid grid-cols-2 gap-3">
         <div>
           <Label htmlFor="start-time">Start Time *</Label>
-          <Input id="start-time" type="time" value={startTime} onChange={e => setStartTime(e.target.value)} required />
+          <TimePicker id="start-time" label="Start Time" value={startTime} onChange={setStartTime} />
         </div>
         <div>
           <Label htmlFor="end-time">End Time *</Label>
-          <Input id="end-time" type="time" value={endTime} onChange={e => setEndTime(e.target.value)} required />
+          <TimePicker id="end-time" label="End Time" value={endTime} onChange={setEndTime} />
         </div>
       </div>
 
