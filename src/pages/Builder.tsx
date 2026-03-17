@@ -179,7 +179,7 @@ const Builder = () => {
         {/* ─── Tool Section ─── */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">
-            <Dialog open={formOpen} onOpenChange={(open) => { setFormOpen(open); if (!open) setEditingClass(null); }}>
+            <Dialog open={formOpen} onOpenChange={(open) => { setFormOpen(open); if (!open) { setEditingClass(null); setPrefillDay(null); setPrefillTime(null); } }}>
               <DialogTrigger asChild>
                 <Button className="rounded-full shadow-md shadow-primary/20">
                   <Plus className="h-4 w-4 mr-1" /> Add Class
