@@ -194,6 +194,8 @@ const Builder = () => {
                   onDelete={editingClass ? () => { handleDelete(editingClass.id); setFormOpen(false); setEditingClass(null); } : undefined}
                   initial={editingClass ?? undefined}
                   usedColors={classes.map(c => c.color)}
+                  prefillDay={prefillDay ?? undefined}
+                  prefillTime={prefillTime ?? undefined}
                 />
               </DialogContent>
             </Dialog>
