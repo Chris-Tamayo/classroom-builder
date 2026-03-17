@@ -30,7 +30,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
     const endMin = timeToMinutes(entry.endTime);
     const top = ((startMin - startHour * 60) / 60) * HOUR_HEIGHT;
     const height = ((endMin - startMin) / 60) * HOUR_HEIGHT;
-    return { top: `${top}px`, height: `${Math.max(height, 20)}px` };
+    return { top: `${top}px`, height: `${Math.max(height, 36)}px` };
   };
 
   const handleColumnClick = (day: Day, e: React.MouseEvent<HTMLDivElement>) => {
