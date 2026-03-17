@@ -62,6 +62,8 @@ const Builder = () => {
   const [showWeekend, setShowWeekend] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editingClass, setEditingClass] = useState<ClassEntry | null>(null);
+  const [prefillDay, setPrefillDay] = useState<Day | null>(null);
+  const [prefillTime, setPrefillTime] = useState<string | null>(null);
   const [startHour, setStartHour] = useState(7);
   const [endHour, setEndHour] = useState(22);
   const gridRef = useRef<HTMLDivElement>(null);
