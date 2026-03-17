@@ -11,6 +11,8 @@ interface ClassFormProps {
   onDelete?: () => void;
   initial?: ClassEntry;
   usedColors: string[];
+  prefillDay?: Day;
+  prefillTime?: string;
 }
 
 export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormProps) {
