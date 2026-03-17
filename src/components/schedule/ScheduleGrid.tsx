@@ -11,6 +11,7 @@ interface ScheduleGridProps {
   endHour: number;
   onEdit: (entry: ClassEntry) => void;
   onDelete: (id: string) => void;
+  onSlotClick?: (day: Day, time: string) => void;
 }
 
 const HOUR_HEIGHT = 60; // px per hour
