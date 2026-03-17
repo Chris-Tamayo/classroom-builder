@@ -107,7 +107,7 @@ const Builder = () => {
   const handleExportPNG = async () => {
     if (!gridRef.current) return;
     try {
-      const canvas = await html2canvas(gridRef.current, { backgroundColor: null, scale: 2 });
+      const canvas = await html2canvas(gridRef.current, { backgroundColor: null, scale: 2, height: gridRef.current.scrollHeight, windowHeight: gridRef.current.scrollHeight });
       const link = document.createElement('a');
       link.download = 'my-schedule.png';
       link.href = canvas.toDataURL();
