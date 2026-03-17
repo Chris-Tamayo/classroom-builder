@@ -245,6 +245,7 @@ const Builder = () => {
             endHour={endHour}
             onEdit={handleEdit}
             onDelete={handleDelete}
+            onSlotClick={handleSlotClick}
           />
         </div>
 
