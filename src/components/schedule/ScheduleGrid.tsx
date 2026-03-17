@@ -16,7 +16,7 @@ interface ScheduleGridProps {
 
 const HOUR_HEIGHT = 60; // px per hour
 
-export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onEdit, onDelete }: ScheduleGridProps) {
+export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onEdit, onDelete, onSlotClick }: ScheduleGridProps) {
   const hours = useMemo(() => {
     const arr: number[] = [];
     for (let h = startHour; h <= endHour; h++) arr.push(h);
