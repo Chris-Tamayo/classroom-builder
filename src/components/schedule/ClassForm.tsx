@@ -15,15 +15,25 @@ interface ClassFormProps {
   prefillTime?: string;
 }
 
-export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormProps) {
+export function ClassForm({ onSave, onDelete, initial, usedColors, prefillDay, prefillTime }: ClassFormProps) {
   const nextColor = CLASS_COLORS.find(c => !usedColors.includes(c.value))?.value ?? CLASS_COLORS[0].value;
 
   const [name, setName] = useState(initial?.name ?? '');
   const [instructor, setInstructor] = useState(initial?.instructor ?? '');
   const [location, setLocation] = useState(initial?.location ?? '');
-  const [days, setDays] = useState<Day[]>(initial?.days ?? []);
-  const [startTime, setStartTime] = useState(initial?.startTime ?? '09:00');
-  const [endTime, setEndTime] = useState(initial?.endTime ?? '10:00');
+  const [days, setDays] = useState<Day[]>(initial?.days ?? (prefillDay ? [prefillDay] : []));
+  const [startTime, setStartTime] = useState(initial?.startTime ?? prefillTime ?? '09:00');
+  const [endTime, setEndTime] = useState(() => {
+    if (initial?.endTime) return initial.endTime;
+    if (prefillTime) {
+      const [h, m] = prefillTime.split(':').map(Number);
+      const endMins = h * 60 + m + 60;
+      const eh = Math.floor(endMins / 60);
+      const em = endMins % 60;
+      return `${eh.toString().padStart(2, '0')}:${em.toString().padStart(2, '0')}`;
+    }
+    return '10:00';
+  });
   const [color, setColor] = useState(initial?.color ?? nextColor);
 
   const toggleDay = (day: Day) => {
