@@ -33,6 +33,22 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
     return { top: `${top}px`, height: `${Math.max(height, 20)}px` };
   };
 
+  const handleColumnClick = (day: Day, e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onSlotClick) return;
+    // Only trigger if clicking the column background, not a class block
+    if ((e.target as HTMLElement).closest('button[class*="absolute"]')) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const y = e.clientY - rect.top;
+    const minutesFromStart = (y / HOUR_HEIGHT) * 60;
+    const totalMinutes = startHour * 60 + minutesFromStart;
+    // Snap to nearest 15 minutes
+    const snapped = Math.round(totalMinutes / 15) * 15;
+    const h = Math.floor(snapped / 60);
+    const m = snapped % 60;
+    const time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+    onSlotClick(day, time);
+  };
+
   return (
     <div className="overflow-x-auto rounded-xl border bg-card shadow-sm" role="table" aria-label="Weekly class schedule">
       <div className="min-w-[600px]">
