@@ -14,7 +14,7 @@ interface ScheduleGridProps {
   onSlotClick?: (day: Day, time: string) => void;
 }
 
-const HOUR_HEIGHT = 60; // px per hour
+const HOUR_HEIGHT = 72; // px per hour
 
 export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onEdit, onDelete, onSlotClick }: ScheduleGridProps) {
   const hours = useMemo(() => {
