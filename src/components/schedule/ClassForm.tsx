@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ClassEntry, Day, WEEKDAYS, ALL_DAYS, CLASS_COLORS } from '@/types/schedule';
 import { Trash2 } from 'lucide-react';
+import { TimePicker } from './TimePicker';
 
 interface ClassFormProps {
   onSave: (entry: Omit<ClassEntry, 'id'>) => void;
