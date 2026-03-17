@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Plus, Download, Share2, Trash2, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useSchedule } from '@/hooks/useSchedule';
-import { WEEKDAYS, ALL_DAYS, Day, ClassEntry, CLASS_COLORS, timeToMinutes, formatTime, hasConflict } from '@/types/schedule';
+import { WEEKDAYS, ALL_DAYS, Day, ClassEntry, CLASS_COLORS, timeToMinutes, formatTime, hasConflict, minutesToTime } from '@/types/schedule';
 import { ScheduleGrid } from '@/components/schedule/ScheduleGrid';
 import { ClassForm } from '@/components/schedule/ClassForm';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
