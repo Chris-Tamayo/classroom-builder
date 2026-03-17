@@ -81,7 +81,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
           {days.map(day => {
             const dayClasses = classes.filter(c => c.days.includes(day));
             return (
-              <div key={day} className="relative border-r last:border-r-0" style={{ height: `${totalHeight}px` }}>
+              <div key={day} className="relative border-r last:border-r-0 cursor-pointer" style={{ height: `${totalHeight}px` }} onClick={(e) => handleColumnClick(day, e)}>
                 {/* Hour lines */}
                 {hours.map(h => (
                   <div
