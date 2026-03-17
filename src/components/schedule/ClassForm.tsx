@@ -4,23 +4,36 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ClassEntry, Day, WEEKDAYS, ALL_DAYS, CLASS_COLORS } from '@/types/schedule';
 import { Trash2 } from 'lucide-react';
+import { TimePicker } from './TimePicker';
 
 interface ClassFormProps {
   onSave: (entry: Omit<ClassEntry, 'id'>) => void;
   onDelete?: () => void;
   initial?: ClassEntry;
   usedColors: string[];
+  prefillDay?: Day;
+  prefillTime?: string;
 }
 
-export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormProps) {
+export function ClassForm({ onSave, onDelete, initial, usedColors, prefillDay, prefillTime }: ClassFormProps) {
   const nextColor = CLASS_COLORS.find(c => !usedColors.includes(c.value))?.value ?? CLASS_COLORS[0].value;
 
   const [name, setName] = useState(initial?.name ?? '');
   const [instructor, setInstructor] = useState(initial?.instructor ?? '');
   const [location, setLocation] = useState(initial?.location ?? '');
-  const [days, setDays] = useState<Day[]>(initial?.days ?? []);
-  const [startTime, setStartTime] = useState(initial?.startTime ?? '09:00');
-  const [endTime, setEndTime] = useState(initial?.endTime ?? '10:00');
+  const [days, setDays] = useState<Day[]>(initial?.days ?? (prefillDay ? [prefillDay] : []));
+  const [startTime, setStartTime] = useState(initial?.startTime ?? prefillTime ?? '09:00');
+  const [endTime, setEndTime] = useState(() => {
+    if (initial?.endTime) return initial.endTime;
+    if (prefillTime) {
+      const [h, m] = prefillTime.split(':').map(Number);
+      const endMins = h * 60 + m + 60;
+      const eh = Math.floor(endMins / 60);
+      const em = endMins % 60;
+      return `${eh.toString().padStart(2, '0')}:${em.toString().padStart(2, '0')}`;
+    }
+    return '10:00';
+  });
   const [color, setColor] = useState(initial?.color ?? nextColor);
 
   const toggleDay = (day: Day) => {
@@ -75,11 +88,11 @@ export function ClassForm({ onSave, onDelete, initial, usedColors }: ClassFormPr
       <div className="grid grid-cols-2 gap-3">
         <div>
           <Label htmlFor="start-time">Start Time *</Label>
-          <Input id="start-time" type="time" value={startTime} onChange={e => setStartTime(e.target.value)} required />
+          <TimePicker id="start-time" label="Start Time" value={startTime} onChange={setStartTime} />
         </div>
         <div>
           <Label htmlFor="end-time">End Time *</Label>
-          <Input id="end-time" type="time" value={endTime} onChange={e => setEndTime(e.target.value)} required />
+          <TimePicker id="end-time" label="End Time" value={endTime} onChange={setEndTime} />
         </div>
       </div>
 

@@ -11,11 +11,12 @@ interface ScheduleGridProps {
   endHour: number;
   onEdit: (entry: ClassEntry) => void;
   onDelete: (id: string) => void;
+  onSlotClick?: (day: Day, time: string) => void;
 }
 
-const HOUR_HEIGHT = 60; // px per hour
+const HOUR_HEIGHT = 72; // px per hour
 
-export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onEdit, onDelete }: ScheduleGridProps) {
+export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onEdit, onDelete, onSlotClick }: ScheduleGridProps) {
   const hours = useMemo(() => {
     const arr: number[] = [];
     for (let h = startHour; h <= endHour; h++) arr.push(h);
@@ -30,6 +31,22 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
     const top = ((startMin - startHour * 60) / 60) * HOUR_HEIGHT;
     const height = ((endMin - startMin) / 60) * HOUR_HEIGHT;
     return { top: `${top}px`, height: `${Math.max(height, 20)}px` };
+  };
+
+  const handleColumnClick = (day: Day, e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onSlotClick) return;
+    // Only trigger if clicking the column background, not a class block
+    if ((e.target as HTMLElement).closest('button[class*="absolute"]')) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const y = e.clientY - rect.top;
+    const minutesFromStart = (y / HOUR_HEIGHT) * 60;
+    const totalMinutes = startHour * 60 + minutesFromStart;
+    // Snap to nearest 15 minutes
+    const snapped = Math.round(totalMinutes / 15) * 15;
+    const h = Math.floor(snapped / 60);
+    const m = snapped % 60;
+    const time = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+    onSlotClick(day, time);
   };
 
   return (
@@ -64,7 +81,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
           {days.map(day => {
             const dayClasses = classes.filter(c => c.days.includes(day));
             return (
-              <div key={day} className="relative border-r last:border-r-0" style={{ height: `${totalHeight}px` }}>
+              <div key={day} className="relative border-r last:border-r-0 cursor-pointer" style={{ height: `${totalHeight}px` }} onClick={(e) => handleColumnClick(day, e)}>
                 {/* Hour lines */}
                 {hours.map(h => (
                   <div
@@ -87,7 +104,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.2 }}
                         className={cn(
-                          'absolute left-1 right-1 rounded-lg px-2 py-1 text-left cursor-pointer overflow-hidden transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
+                          'absolute left-1 right-1 rounded-lg px-1.5 py-1 text-left cursor-pointer overflow-visible transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
                           isConflict && 'ring-2 ring-destructive ring-offset-1'
                         )}
                         style={{

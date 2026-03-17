@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Plus, Download, Share2, Trash2, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
 import { useSchedule } from '@/hooks/useSchedule';
-import { WEEKDAYS, ALL_DAYS, Day, ClassEntry, CLASS_COLORS, timeToMinutes, formatTime, hasConflict } from '@/types/schedule';
+import { WEEKDAYS, ALL_DAYS, Day, ClassEntry, CLASS_COLORS, timeToMinutes, formatTime, hasConflict, minutesToTime } from '@/types/schedule';
 import { ScheduleGrid } from '@/components/schedule/ScheduleGrid';
 import { ClassForm } from '@/components/schedule/ClassForm';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -62,6 +62,8 @@ const Builder = () => {
   const [showWeekend, setShowWeekend] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editingClass, setEditingClass] = useState<ClassEntry | null>(null);
+  const [prefillDay, setPrefillDay] = useState<Day | null>(null);
+  const [prefillTime, setPrefillTime] = useState<string | null>(null);
   const [startHour, setStartHour] = useState(7);
   const [endHour, setEndHour] = useState(22);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -82,6 +84,18 @@ const Builder = () => {
 
   const handleEdit = (entry: ClassEntry) => {
     setEditingClass(entry);
+    setPrefillDay(null);
+    setPrefillTime(null);
+    setFormOpen(true);
+  };
+
+  const handleSlotClick = (day: Day, time: string) => {
+    setEditingClass(null);
+    setPrefillDay(day);
+    setPrefillTime(time);
+    // Calculate end time as 1 hour after start
+    const mins = timeToMinutes(time);
+    setPrefillTime(time);
     setFormOpen(true);
   };
 
@@ -165,7 +179,7 @@ const Builder = () => {
         {/* ─── Tool Section ─── */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div className="flex items-center gap-3">
-            <Dialog open={formOpen} onOpenChange={(open) => { setFormOpen(open); if (!open) setEditingClass(null); }}>
+            <Dialog open={formOpen} onOpenChange={(open) => { setFormOpen(open); if (!open) { setEditingClass(null); setPrefillDay(null); setPrefillTime(null); } }}>
               <DialogTrigger asChild>
                 <Button className="rounded-full shadow-md shadow-primary/20">
                   <Plus className="h-4 w-4 mr-1" /> Add Class
@@ -180,6 +194,8 @@ const Builder = () => {
                   onDelete={editingClass ? () => { handleDelete(editingClass.id); setFormOpen(false); setEditingClass(null); } : undefined}
                   initial={editingClass ?? undefined}
                   usedColors={classes.map(c => c.color)}
+                  prefillDay={prefillDay ?? undefined}
+                  prefillTime={prefillTime ?? undefined}
                 />
               </DialogContent>
             </Dialog>
@@ -229,6 +245,7 @@ const Builder = () => {
             endHour={endHour}
             onEdit={handleEdit}
             onDelete={handleDelete}
+            onSlotClick={handleSlotClick}
           />
         </div>
 
