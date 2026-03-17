@@ -84,6 +84,18 @@ const Builder = () => {
 
   const handleEdit = (entry: ClassEntry) => {
     setEditingClass(entry);
+    setPrefillDay(null);
+    setPrefillTime(null);
+    setFormOpen(true);
+  };
+
+  const handleSlotClick = (day: Day, time: string) => {
+    setEditingClass(null);
+    setPrefillDay(day);
+    setPrefillTime(time);
+    // Calculate end time as 1 hour after start
+    const mins = timeToMinutes(time);
+    setPrefillTime(time);
     setFormOpen(true);
   };
 
