@@ -107,7 +107,7 @@ const Builder = () => {
   const handleExportPNG = async () => {
     if (!gridRef.current) return;
     try {
-      const canvas = await html2canvas(gridRef.current, { backgroundColor: null, scale: 2 });
+      const canvas = await html2canvas(gridRef.current, { backgroundColor: null, scale: 2, height: gridRef.current.scrollHeight, windowHeight: gridRef.current.scrollHeight });
       const link = document.createElement('a');
       link.download = 'my-schedule.png';
       link.href = canvas.toDataURL();
@@ -306,7 +306,7 @@ const Builder = () => {
           {/* FAQs */}
           <div>
             <h2 className="text-xl font-semibold text-foreground mb-3">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full -mt-2">
               <AccordionItem value="faq-1">
                 <AccordionTrigger className="text-foreground text-left">Is this schedule maker free?</AccordionTrigger>
                 <AccordionContent>
