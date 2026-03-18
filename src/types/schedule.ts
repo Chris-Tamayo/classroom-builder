@@ -31,6 +31,14 @@ export const CLASS_COLORS = [
   { name: 'Fuchsia', value: '292 84% 61%' },
   { name: 'Slate', value: '215 20% 45%' },
   { name: 'Gold', value: '45 93% 47%' },
+  { name: 'Coral', value: '16 85% 61%' },
+  { name: 'Lavender', value: '260 60% 65%' },
+  { name: 'Mint', value: '162 63% 55%' },
+  { name: 'Peach', value: '28 100% 72%' },
+  { name: 'Berry', value: '328 70% 48%' },
+  { name: 'Ocean', value: '205 78% 50%' },
+  { name: 'Sage', value: '140 30% 52%' },
+  { name: 'Mauve', value: '300 25% 55%' },
 ] as const;
 
 export function timeToMinutes(time: string): number {

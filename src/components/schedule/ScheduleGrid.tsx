@@ -109,7 +109,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
                         )}
                         style={{
                           top: style.top,
-                          height: style.height,
+                          minHeight: style.height,
                           backgroundColor: `hsl(${entry.color} / 0.85)`,
                           color: 'white',
                         }}
