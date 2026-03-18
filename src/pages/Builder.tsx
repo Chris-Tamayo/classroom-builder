@@ -337,7 +337,7 @@ const Builder = () => {
                   Yes. If two classes overlap on the same day, the tool highlights them and shows a warning banner so you can resolve the conflict.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="faq-6">
+              <AccordionItem value="faq-6" className="border-b-0">
                 <AccordionTrigger className="text-foreground text-left">Can I add weekend classes?</AccordionTrigger>
                 <AccordionContent>
                   Yes — check the "Show weekends" box to add Saturday and Sunday columns to your schedule grid.
