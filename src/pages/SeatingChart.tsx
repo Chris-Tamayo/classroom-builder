@@ -357,7 +357,7 @@ const SeatingChart = () => {
             <h1 className="text-3xl font-bold sm:text-4xl">Free Seating Chart Generator for Teachers</h1>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm">
-            Create a classroom seating chart in seconds. Paste your student names, choose your layout, and click Generate. Drag students between seats to fine-tune, lock specific seats, and export as a PNG image or copy to clipboard. No login, no sign-up — 100% free.
+            Create a classroom seating chart in seconds. Paste your student names, choose your layout, and click Generate. Drag students between seats to fine-tune, lock specific seats, and export as a PNG image or copy it to your clipboard. No login, no signup — 100% free.
           </p>
         </header>
 
