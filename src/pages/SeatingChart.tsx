@@ -455,7 +455,7 @@ const SeatingChart = () => {
 
                 <DragDropContext onDragEnd={handleDragEnd}>
                   <div ref={chartRef} className="rounded-xl border bg-card p-4 overflow-x-auto">
-                    <div className="inline-block min-w-full">
+                    <div className="inline-block w-max">
                       {renderGrid()}
                     </div>
                   </div>
