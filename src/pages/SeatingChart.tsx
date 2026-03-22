@@ -192,11 +192,10 @@ const SeatingChart = () => {
 
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
-      // rows/cols = cluster rows/columns, each cluster = 2x2 = 4 seats
       return (
-        <div className="flex flex-col gap-6">
+        <div className="inline-flex flex-col gap-6">
           {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex flex-wrap gap-6 justify-center">
+            <div key={cr} className="flex gap-6">
               {Array.from({ length: cols }, (_, cc) => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
@@ -214,8 +213,8 @@ const SeatingChart = () => {
 
     return (
       <div
-        className="grid justify-center gap-2"
-        style={{ gridTemplateColumns: `repeat(${cols}, minmax(120px, 120px))` }}
+        className="inline-grid gap-2"
+        style={{ gridTemplateColumns: `repeat(${cols}, 80px)` }}
       >
         {seats.map((_, idx) => renderSeat(idx))}
       </div>
