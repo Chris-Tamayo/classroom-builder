@@ -10,6 +10,7 @@ import RandomNamePicker from "./pages/RandomNamePicker";
 import HowToGroupStudents from "./pages/HowToGroupStudents";
 import HowToMakeClassSchedule from "./pages/HowToMakeClassSchedule";
 import SeatingChart from "./pages/SeatingChart";
+import NoRepeatGroupGenerator from "./pages/NoRepeatGroupGenerator";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/blog/randomly-group-students" element={<HowToGroupStudents />} />
           <Route path="/blog/how-to-randomly-group-students" element={<Navigate to="/blog/randomly-group-students" replace />} />
           <Route path="/blog/how-to-make-a-class-schedule" element={<HowToMakeClassSchedule />} />
+          <Route path="/blog/random-group-generator-no-repeat" element={<NoRepeatGroupGenerator />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
