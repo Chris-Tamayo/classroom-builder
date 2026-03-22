@@ -255,7 +255,7 @@ const SeatingChart = () => {
                 )}
               </Draggable>
             ) : (
-              <div className="flex items-center justify-center px-2 py-3 text-xs text-muted-foreground/50">
+              <div className="flex items-center justify-center h-full px-2 text-xs text-muted-foreground/50">
                 —
               </div>
             )}
