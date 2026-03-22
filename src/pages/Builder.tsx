@@ -67,7 +67,6 @@ const Builder = () => {
   const [startHour, setStartHour] = useState(7);
   const [endHour, setEndHour] = useState(22);
   const gridRef = useRef<HTMLDivElement>(null);
-  const exportRef = useRef<HTMLElement>(null);
 
   const days = showWeekend ? ALL_DAYS : WEEKDAYS;
 
@@ -106,11 +105,13 @@ const Builder = () => {
   };
 
   const handleExportPNG = async () => {
-    if (!exportRef.current) return;
+    if (!gridRef.current) return;
     try {
-      const dataUrl = await toPng(exportRef.current, {
+      const dataUrl = await toPng(gridRef.current, {
         cacheBust: true,
         pixelRatio: 2,
+        width: gridRef.current.scrollWidth,
+        height: gridRef.current.scrollHeight,
         skipAutoScale: true,
       });
       const link = document.createElement('a');
@@ -168,7 +169,7 @@ const Builder = () => {
         }
       />
 
-      <main ref={exportRef} className="container mx-auto px-4 py-6 max-w-6xl">
+      <main className="container mx-auto px-4 py-6 max-w-6xl">
 
         {/* ─── Above the Tool: H1 + Intro ─── */}
         <header className="text-center mb-8">
@@ -352,7 +353,7 @@ const Builder = () => {
           </div>
 
           {/* Internal Links */}
-          <div className="border-t border-border pt-8">
+          <div className="pt-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">More Free Teacher & Student Tools</h2>
             <p className="mb-4">
               ClassroomBuilder offers a growing set of free tools designed for teachers and students. Check out our other tools:
