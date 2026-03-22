@@ -9,7 +9,7 @@ import { ScheduleGrid } from '@/components/schedule/ScheduleGrid';
 import { ClassForm } from '@/components/schedule/ClassForm';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import AppHeader from '@/components/AppHeader';
@@ -67,6 +67,7 @@ const Builder = () => {
   const [startHour, setStartHour] = useState(7);
   const [endHour, setEndHour] = useState(22);
   const gridRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLElement>(null);
 
   const days = showWeekend ? ALL_DAYS : WEEKDAYS;
 
@@ -105,12 +106,16 @@ const Builder = () => {
   };
 
   const handleExportPNG = async () => {
-    if (!gridRef.current) return;
+    if (!exportRef.current) return;
     try {
-      const canvas = await html2canvas(gridRef.current, { backgroundColor: null, scale: 2, height: gridRef.current.scrollHeight, windowHeight: gridRef.current.scrollHeight });
+      const dataUrl = await toPng(exportRef.current, {
+        cacheBust: true,
+        pixelRatio: 2,
+        skipAutoScale: true,
+      });
       const link = document.createElement('a');
       link.download = 'my-schedule.png';
-      link.href = canvas.toDataURL();
+      link.href = dataUrl;
       link.click();
       toast.success('Schedule exported as PNG');
     } catch {
@@ -163,7 +168,7 @@ const Builder = () => {
         }
       />
 
-      <main className="container mx-auto px-4 py-6 max-w-6xl">
+      <main ref={exportRef} className="container mx-auto px-4 py-6 max-w-6xl">
 
         {/* ─── Above the Tool: H1 + Intro ─── */}
         <header className="text-center mb-8">
