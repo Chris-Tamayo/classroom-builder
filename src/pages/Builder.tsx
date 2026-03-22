@@ -358,7 +358,7 @@ const Builder = () => {
             <p className="mb-4">
               ClassroomBuilder offers a growing set of free tools designed for teachers and students. Check out our other tools:
             </p>
-              <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <Link to="/random-group-generator" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
                 <h3 className="font-semibold text-foreground flex items-center gap-2">
                   Random Group Generator
@@ -375,6 +375,15 @@ const Builder = () => {
                 </h3>
                 <p className="text-muted-foreground text-sm mt-1">
                   Randomly pick one or more students from your class list with a fun spin animation. Great for participation and games.
+                </p>
+              </Link>
+              <Link to="/seating-chart-generator" className="group block rounded-lg border border-border p-4 hover:border-primary/50 hover:bg-primary/5 transition-colors">
+                <h3 className="font-semibold text-foreground flex items-center gap-2">
+                  Seating Chart Generator
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                </h3>
+                <p className="text-muted-foreground text-sm mt-1">
+                  Create a randomized classroom seating chart with drag-and-drop editing, lock seats, and PNG export.
                 </p>
               </Link>
             </div>
