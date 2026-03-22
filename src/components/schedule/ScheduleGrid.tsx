@@ -104,7 +104,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.2 }}
                         className={cn(
-                          'absolute left-1 right-1 rounded-lg px-1.5 py-1 text-left cursor-pointer overflow-hidden transition-shadow hover:shadow-md hover:z-10 hover:overflow-visible focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
+                          'absolute left-1 right-1 rounded-lg px-1.5 pt-1.5 pb-1.5 text-left cursor-pointer overflow-hidden transition-shadow hover:shadow-md hover:z-10 hover:overflow-visible focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1',
                           isConflict && 'ring-2 ring-destructive ring-offset-1'
                         )}
                         style={{
@@ -114,17 +114,18 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
                           color: 'white',
                         }}
                         onClick={() => onEdit(entry)}
+                        data-schedule-block="true"
                         aria-label={`${entry.name}, ${formatTime(entry.startTime)} to ${formatTime(entry.endTime)}${entry.location ? `, at ${entry.location}` : ''}. Click to edit.`}
                       >
-                        <span className="block text-xs font-semibold truncate drop-shadow-sm">{entry.name}</span>
-                        <span className="block text-[10px] opacity-90 truncate drop-shadow-sm">
+                        <span className="block text-xs font-semibold leading-[1.2] truncate">{entry.name}</span>
+                        <span className="block text-[10px] leading-[1.25] opacity-90 truncate">
                           {formatTime(entry.startTime)} – {formatTime(entry.endTime)}
                         </span>
                         {entry.instructor && (
-                          <span className="block text-[10px] opacity-85 truncate">{entry.instructor}</span>
+                          <span className="block text-[10px] leading-[1.25] opacity-85 truncate">{entry.instructor}</span>
                         )}
                         {entry.location && (
-                          <span className="block text-[10px] opacity-80 truncate">{entry.location}</span>
+                          <span className="block text-[10px] leading-[1.25] opacity-80 truncate">{entry.location}</span>
                         )}
                       </motion.button>
                     );
