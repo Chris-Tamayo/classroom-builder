@@ -89,7 +89,7 @@ const SeatingChart = () => {
       .filter(n => n.length > 0);
   }, [namesInput]);
 
-  const totalSeats = rows * cols;
+  const totalSeats = layoutMode === 'clusters' ? rows * cols * 4 : rows * cols;
   const studentNames = parseNames();
   const overflow = studentNames.length > totalSeats;
 
@@ -165,9 +165,26 @@ const SeatingChart = () => {
 
   const handleCopyText = () => {
     const lines: string[] = [];
-    for (let r = 0; r < rows; r++) {
-      const row = seats.slice(r * cols, (r + 1) * cols);
-      lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
+    if (layoutMode === 'clusters') {
+      for (let cr = 0; cr < rows; cr++) {
+        for (let dr = 0; dr < 2; dr++) {
+          const rowParts: string[] = [];
+          for (let cc = 0; cc < cols; cc++) {
+            const clusterStart = (cr * cols + cc) * 4;
+            const seatIdx = clusterStart + dr * 2;
+            const s1 = seats[seatIdx]?.studentName || '(empty)';
+            const s2 = seats[seatIdx + 1]?.studentName || '(empty)';
+            rowParts.push(`${s1}\t${s2}`);
+          }
+          lines.push(rowParts.join('\t\t'));
+        }
+        lines.push('');
+      }
+    } else {
+      for (let r = 0; r < rows; r++) {
+        const row = seats.slice(r * cols, (r + 1) * cols);
+        lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
+      }
     }
     navigator.clipboard.writeText(lines.join('\n'));
     toast.success('Seating chart copied to clipboard');
@@ -175,22 +192,14 @@ const SeatingChart = () => {
 
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
-      // Group into clusters of 4 (2x2)
-      const clusterCols = Math.ceil(cols / 2);
-      const clusterRows = Math.ceil(rows / 2);
+      // rows/cols = cluster rows/columns, each cluster = 2x2 = 4 seats
       return (
         <div className="flex flex-col gap-6">
-          {Array.from({ length: clusterRows }, (_, cr) => (
+          {Array.from({ length: rows }, (_, cr) => (
             <div key={cr} className="flex flex-wrap gap-6 justify-center">
-              {Array.from({ length: clusterCols }, (_, cc) => {
-                const indices: number[] = [];
-                for (let dr = 0; dr < 2; dr++) {
-                  for (let dc = 0; dc < 2; dc++) {
-                    const r = cr * 2 + dr;
-                    const c = cc * 2 + dc;
-                    if (r < rows && c < cols) indices.push(r * cols + c);
-                  }
-                }
+              {Array.from({ length: cols }, (_, cc) => {
+                const clusterStart = (cr * cols + cc) * 4;
+                const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
                 return (
                   <div key={cc} className="grid grid-cols-2 gap-1 p-2 rounded-lg border border-border/60 bg-muted/20">
                     {indices.map(idx => renderSeat(idx))}
