@@ -365,11 +365,11 @@ const SeatingChart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="rows-input">Rows</Label>
-                  <Input id="rows-input" type="number" min={1} max={20} value={rows} onChange={e => setRows(Math.max(1, Math.min(20, Number(e.target.value))))} className="mt-1" />
+                  <Input id="rows-input" type="text" inputMode="numeric" pattern="[0-9]*" value={rowsInput} onChange={e => handleRowsInputChange(e.target.value)} onBlur={handleRowsBlur} className="mt-1" />
                 </div>
                 <div>
                   <Label htmlFor="cols-input">Columns</Label>
-                  <Input id="cols-input" type="number" min={1} max={20} value={cols} onChange={e => setCols(Math.max(1, Math.min(20, Number(e.target.value))))} className="mt-1" />
+                  <Input id="cols-input" type="text" inputMode="numeric" pattern="[0-9]*" value={colsInput} onChange={e => handleColsInputChange(e.target.value)} onBlur={handleColsBlur} className="mt-1" />
                 </div>
               </div>
 
