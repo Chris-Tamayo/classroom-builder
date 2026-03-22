@@ -490,7 +490,7 @@ const SeatingChart = () => {
           </div>
 
           {/* Internal Links */}
-          <div className="border-t border-border pt-8">
+          <div className="pt-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">More Free Teacher & Student Tools</h2>
             <p className="mb-4">
               ClassroomBuilder offers a growing set of free tools designed for teachers and students. Check out our other tools:
