@@ -246,7 +246,7 @@ const SeatingChart = () => {
                     ref={dragProvided.innerRef}
                     {...dragProvided.draggableProps}
                     {...dragProvided.dragHandleProps}
-                    className={`flex items-center justify-center px-2 py-3 text-sm font-medium text-foreground text-center cursor-grab active:cursor-grabbing select-none ${
+                    className={`flex items-center justify-center h-full px-2 text-sm font-medium text-foreground text-center truncate cursor-grab active:cursor-grabbing select-none ${
                       dragSnapshot.isDragging ? 'opacity-80 shadow-lg scale-105' : ''
                     }`}
                   >
