@@ -201,7 +201,7 @@ const SeatingChart = () => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
                 return (
-                  <div key={cc} className="grid grid-cols-2 gap-1 p-2 rounded-lg border border-border/60 bg-muted/20">
+                  <div key={cc} className="grid grid-cols-2 gap-2 p-2 rounded-lg border border-border/60 bg-muted/20">
                     {indices.map(idx => renderSeat(idx))}
                   </div>
                 );
@@ -214,8 +214,8 @@ const SeatingChart = () => {
 
     return (
       <div
-        className="grid gap-2"
-        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+        className="grid justify-center gap-2"
+        style={{ gridTemplateColumns: `repeat(${cols}, minmax(120px, 120px))` }}
       >
         {seats.map((_, idx) => renderSeat(idx))}
       </div>
@@ -231,7 +231,7 @@ const SeatingChart = () => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`relative h-[72px] w-full rounded-lg border-2 transition-colors ${
+            className={`relative h-[120px] w-[120px] shrink-0 rounded-lg border-2 transition-colors ${
               snapshot.isDraggingOver
                 ? 'border-primary bg-primary/10'
                 : seat.studentName
@@ -246,7 +246,7 @@ const SeatingChart = () => {
                     ref={dragProvided.innerRef}
                     {...dragProvided.draggableProps}
                     {...dragProvided.dragHandleProps}
-                    className={`flex items-center justify-center h-full px-2 text-sm font-medium text-foreground text-center truncate cursor-grab active:cursor-grabbing select-none ${
+                    className={`flex h-full w-full items-center justify-center px-2 text-sm font-medium text-foreground text-center leading-tight whitespace-normal break-words overflow-hidden cursor-grab active:cursor-grabbing select-none ${
                       dragSnapshot.isDragging ? 'opacity-80 shadow-lg scale-105' : ''
                     }`}
                   >
@@ -255,7 +255,7 @@ const SeatingChart = () => {
                 )}
               </Draggable>
             ) : (
-              <div className="flex items-center justify-center h-full px-2 text-xs text-muted-foreground/50">
+              <div className="flex h-full w-full items-center justify-center px-2 text-xs text-muted-foreground/50">
                 —
               </div>
             )}
