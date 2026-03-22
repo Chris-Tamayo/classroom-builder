@@ -80,7 +80,47 @@ const SeatingChart = () => {
   const [seats, setSeats] = useState<Seat[]>([]);
   const [generated, setGenerated] = useState(false);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('grid');
+  const [rowsInput, setRowsInput] = useState('5');
+  const [colsInput, setColsInput] = useState('6');
   const chartRef = useRef<HTMLDivElement>(null);
+
+  const clampDimension = (value: number) => Math.max(1, Math.min(20, value));
+
+  const handleRowsInputChange = (value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    setRowsInput(value);
+    if (value !== '') {
+      setRows(clampDimension(Number(value)));
+    }
+  };
+
+  const handleColsInputChange = (value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    setColsInput(value);
+    if (value !== '') {
+      setCols(clampDimension(Number(value)));
+    }
+  };
+
+  const handleRowsBlur = () => {
+    if (rowsInput === '') {
+      setRowsInput(String(rows));
+      return;
+    }
+    const next = clampDimension(Number(rowsInput));
+    setRows(next);
+    setRowsInput(String(next));
+  };
+
+  const handleColsBlur = () => {
+    if (colsInput === '') {
+      setColsInput(String(cols));
+      return;
+    }
+    const next = clampDimension(Number(colsInput));
+    setCols(next);
+    setColsInput(String(next));
+  };
 
   const parseNames = useCallback(() => {
     return namesInput
@@ -193,14 +233,14 @@ const SeatingChart = () => {
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
       return (
-        <div className="inline-flex flex-col gap-6">
+        <div className="inline-flex w-max flex-col gap-6">
           {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex gap-6">
+            <div key={cr} className="flex w-max gap-6">
               {Array.from({ length: cols }, (_, cc) => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
                 return (
-                  <div key={cc} className="grid grid-cols-2 gap-2 p-2 rounded-lg border border-border/60 bg-muted/20">
+                  <div key={cc} className="grid shrink-0 grid-cols-2 gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
                     {indices.map(idx => renderSeat(idx))}
                   </div>
                 );
@@ -325,11 +365,11 @@ const SeatingChart = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="rows-input">Rows</Label>
-                  <Input id="rows-input" type="number" min={1} max={20} value={rows} onChange={e => setRows(Math.max(1, Math.min(20, Number(e.target.value))))} className="mt-1" />
+                  <Input id="rows-input" type="text" inputMode="numeric" pattern="[0-9]*" value={rowsInput} onChange={e => handleRowsInputChange(e.target.value)} onBlur={handleRowsBlur} className="mt-1" />
                 </div>
                 <div>
                   <Label htmlFor="cols-input">Columns</Label>
-                  <Input id="cols-input" type="number" min={1} max={20} value={cols} onChange={e => setCols(Math.max(1, Math.min(20, Number(e.target.value))))} className="mt-1" />
+                  <Input id="cols-input" type="text" inputMode="numeric" pattern="[0-9]*" value={colsInput} onChange={e => handleColsInputChange(e.target.value)} onBlur={handleColsBlur} className="mt-1" />
                 </div>
               </div>
 
@@ -396,8 +436,10 @@ const SeatingChart = () => {
                 </div>
 
                 <DragDropContext onDragEnd={handleDragEnd}>
-                  <div ref={chartRef} className="p-4 rounded-xl border bg-card overflow-x-auto">
-                    {renderGrid()}
+                  <div ref={chartRef} className="rounded-xl border bg-card p-4 overflow-x-auto">
+                    <div className="inline-block min-w-full">
+                      {renderGrid()}
+                    </div>
                   </div>
                 </DragDropContext>
               </motion.div>
