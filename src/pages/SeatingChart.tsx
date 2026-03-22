@@ -251,9 +251,9 @@ const SeatingChart = () => {
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
       return (
-        <div className="inline-flex w-max flex-col gap-6">
+        <div className="inline-flex w-max flex-col items-start gap-6">
           {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex w-max gap-6">
+            <div key={cr} className="flex w-max flex-nowrap gap-6">
               {Array.from({ length: cols }, (_, cc) => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
