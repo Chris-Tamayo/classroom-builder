@@ -133,6 +133,24 @@ const SeatingChart = () => {
   const studentNames = parseNames();
   const overflow = studentNames.length > totalSeats;
 
+  useEffect(() => {
+    if (!generated) return;
+    setSeats(prev => {
+      if (prev.length === totalSeats) return prev;
+
+      if (prev.length < totalSeats) {
+        const extraSeats: Seat[] = Array.from({ length: totalSeats - prev.length }, (_, i) => ({
+          id: `seat-${prev.length + i}`,
+          studentName: '',
+          locked: false,
+        }));
+        return [...prev, ...extraSeats];
+      }
+
+      return prev.slice(0, totalSeats);
+    });
+  }, [generated, totalSeats]);
+
   const generateChart = useCallback(() => {
     const names = parseNames();
     const shuffled = fisherYatesShuffle(names);
@@ -233,9 +251,9 @@ const SeatingChart = () => {
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
       return (
-        <div className="inline-flex w-max flex-col gap-6">
+        <div className="inline-flex w-max flex-col items-start gap-6">
           {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex w-max gap-6">
+            <div key={cr} className="flex w-max flex-nowrap gap-6">
               {Array.from({ length: cols }, (_, cc) => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
@@ -339,7 +357,7 @@ const SeatingChart = () => {
             <h1 className="text-3xl font-bold sm:text-4xl">Free Seating Chart Generator for Teachers</h1>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm">
-            Create a classroom seating chart in seconds. Paste your student names, choose your layout, and click Generate. Drag students between seats to fine-tune, lock specific seats, and export as a PNG image or copy to clipboard. No login, no sign-up — 100% free.
+            Create a classroom seating chart in seconds. Paste your student names, choose your layout, and click Generate. Drag students between seats to fine-tune, lock specific seats, and export as a PNG image or copy it to your clipboard. No login, no signup — 100% free.
           </p>
         </header>
 
@@ -437,7 +455,7 @@ const SeatingChart = () => {
 
                 <DragDropContext onDragEnd={handleDragEnd}>
                   <div ref={chartRef} className="rounded-xl border bg-card p-4 overflow-x-auto">
-                    <div className="inline-block min-w-full">
+                    <div className="inline-block w-max">
                       {renderGrid()}
                     </div>
                   </div>
