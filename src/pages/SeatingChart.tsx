@@ -231,7 +231,7 @@ const SeatingChart = () => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`relative min-h-[56px] min-w-[72px] rounded-lg border-2 transition-colors ${
+            className={`relative h-[72px] w-full rounded-lg border-2 transition-colors ${
               snapshot.isDraggingOver
                 ? 'border-primary bg-primary/10'
                 : seat.studentName
