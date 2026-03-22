@@ -436,8 +436,10 @@ const SeatingChart = () => {
                 </div>
 
                 <DragDropContext onDragEnd={handleDragEnd}>
-                  <div ref={chartRef} className="p-4 rounded-xl border bg-card overflow-x-auto">
-                    {renderGrid()}
+                  <div ref={chartRef} className="rounded-xl border bg-card p-4 overflow-x-auto">
+                    <div className="inline-block min-w-full">
+                      {renderGrid()}
+                    </div>
                   </div>
                 </DragDropContext>
               </motion.div>
