@@ -80,7 +80,47 @@ const SeatingChart = () => {
   const [seats, setSeats] = useState<Seat[]>([]);
   const [generated, setGenerated] = useState(false);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('grid');
+  const [rowsInput, setRowsInput] = useState('5');
+  const [colsInput, setColsInput] = useState('6');
   const chartRef = useRef<HTMLDivElement>(null);
+
+  const clampDimension = (value: number) => Math.max(1, Math.min(20, value));
+
+  const handleRowsInputChange = (value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    setRowsInput(value);
+    if (value !== '') {
+      setRows(clampDimension(Number(value)));
+    }
+  };
+
+  const handleColsInputChange = (value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    setColsInput(value);
+    if (value !== '') {
+      setCols(clampDimension(Number(value)));
+    }
+  };
+
+  const handleRowsBlur = () => {
+    if (rowsInput === '') {
+      setRowsInput(String(rows));
+      return;
+    }
+    const next = clampDimension(Number(rowsInput));
+    setRows(next);
+    setRowsInput(String(next));
+  };
+
+  const handleColsBlur = () => {
+    if (colsInput === '') {
+      setColsInput(String(cols));
+      return;
+    }
+    const next = clampDimension(Number(colsInput));
+    setCols(next);
+    setColsInput(String(next));
+  };
 
   const parseNames = useCallback(() => {
     return namesInput
