@@ -50,7 +50,7 @@ export function ScheduleGrid({ days, classes, conflicts, startHour, endHour, onE
   };
 
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card shadow-sm" role="table" aria-label="Weekly class schedule">
+    <div className="overflow-hidden rounded-xl border bg-card shadow-sm" role="table" aria-label="Weekly class schedule">
       <div className="min-w-[600px]">
         {/* Header */}
         <div className="grid border-b bg-muted/30" style={{ gridTemplateColumns: `64px repeat(${days.length}, 1fr)` }} role="row">
