@@ -228,7 +228,7 @@ const SeatingChart = () => {
                 : seat.studentName
                   ? 'border-border bg-card'
                   : 'border-dashed border-border/50 bg-muted/30'
-            } ${seat.locked ? 'ring-2 ring-amber-400/60' : ''}`}
+            } ${seat.locked ? 'ring-2 ring-primary/40' : ''}`}
           >
             {seat.studentName ? (
               <Draggable draggableId={seat.id} index={0} isDragDisabled={seat.locked}>
@@ -257,7 +257,7 @@ const SeatingChart = () => {
                 className="absolute top-0.5 right-0.5 p-0.5 rounded text-muted-foreground/50 hover:text-foreground transition-colors"
                 aria-label={seat.locked ? 'Unlock seat' : 'Lock seat'}
               >
-                {seat.locked ? <Lock className="h-3 w-3 text-amber-500" /> : <Unlock className="h-3 w-3" />}
+                {seat.locked ? <Lock className="h-3 w-3 text-primary" /> : <Unlock className="h-3 w-3" />}
               </button>
             )}
           </div>
