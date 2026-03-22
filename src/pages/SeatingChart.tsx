@@ -233,14 +233,14 @@ const SeatingChart = () => {
   const renderGrid = () => {
     if (layoutMode === 'clusters') {
       return (
-        <div className="inline-flex flex-col gap-6">
+        <div className="inline-flex w-max flex-col gap-6">
           {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex gap-6">
+            <div key={cr} className="flex w-max gap-6">
               {Array.from({ length: cols }, (_, cc) => {
                 const clusterStart = (cr * cols + cc) * 4;
                 const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
                 return (
-                  <div key={cc} className="grid grid-cols-2 gap-2 p-2 rounded-lg border border-border/60 bg-muted/20">
+                  <div key={cc} className="grid shrink-0 grid-cols-2 gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
                     {indices.map(idx => renderSeat(idx))}
                   </div>
                 );
