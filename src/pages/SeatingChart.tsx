@@ -133,6 +133,24 @@ const SeatingChart = () => {
   const studentNames = parseNames();
   const overflow = studentNames.length > totalSeats;
 
+  useEffect(() => {
+    if (!generated) return;
+    setSeats(prev => {
+      if (prev.length === totalSeats) return prev;
+
+      if (prev.length < totalSeats) {
+        const extraSeats: Seat[] = Array.from({ length: totalSeats - prev.length }, (_, i) => ({
+          id: `seat-${prev.length + i}`,
+          studentName: '',
+          locked: false,
+        }));
+        return [...prev, ...extraSeats];
+      }
+
+      return prev.slice(0, totalSeats);
+    });
+  }, [generated, totalSeats]);
+
   const generateChart = useCallback(() => {
     const names = parseNames();
     const shuffled = fisherYatesShuffle(names);
