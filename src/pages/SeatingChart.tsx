@@ -480,7 +480,7 @@ const SeatingChart = () => {
                   Yes — click the lock icon on any seat to keep that student in place. When you hit <strong>Randomize Again</strong>, locked students stay put while everyone else gets shuffled.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="faq-6" className="border-b-0">
+              <AccordionItem value="faq-6" className="border-none">
                 <AccordionTrigger className="text-foreground text-left">Is my student data private?</AccordionTrigger>
                 <AccordionContent>
                   Absolutely. All processing happens entirely in your browser. No data is sent to any server — your student names never leave your device.
