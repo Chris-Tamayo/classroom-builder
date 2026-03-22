@@ -231,7 +231,7 @@ const SeatingChart = () => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`relative min-h-[56px] min-w-[72px] rounded-lg border-2 transition-colors ${
+            className={`relative h-[72px] w-full rounded-lg border-2 transition-colors ${
               snapshot.isDraggingOver
                 ? 'border-primary bg-primary/10'
                 : seat.studentName
@@ -246,7 +246,7 @@ const SeatingChart = () => {
                     ref={dragProvided.innerRef}
                     {...dragProvided.draggableProps}
                     {...dragProvided.dragHandleProps}
-                    className={`flex items-center justify-center px-2 py-3 text-sm font-medium text-foreground text-center cursor-grab active:cursor-grabbing select-none ${
+                    className={`flex items-center justify-center h-full px-2 text-sm font-medium text-foreground text-center truncate cursor-grab active:cursor-grabbing select-none ${
                       dragSnapshot.isDragging ? 'opacity-80 shadow-lg scale-105' : ''
                     }`}
                   >
@@ -255,7 +255,7 @@ const SeatingChart = () => {
                 )}
               </Draggable>
             ) : (
-              <div className="flex items-center justify-center px-2 py-3 text-xs text-muted-foreground/50">
+              <div className="flex items-center justify-center h-full px-2 text-xs text-muted-foreground/50">
                 —
               </div>
             )}
@@ -480,7 +480,7 @@ const SeatingChart = () => {
                   Yes — click the lock icon on any seat to keep that student in place. When you hit <strong>Randomize Again</strong>, locked students stay put while everyone else gets shuffled.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="faq-6" className="border-b-0">
+              <AccordionItem value="faq-6" className="border-none">
                 <AccordionTrigger className="text-foreground text-left">Is my student data private?</AccordionTrigger>
                 <AccordionContent>
                   Absolutely. All processing happens entirely in your browser. No data is sent to any server — your student names never leave your device.
