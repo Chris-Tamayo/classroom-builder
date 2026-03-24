@@ -79,7 +79,7 @@ const SeatingChart = () => {
   const [cols, setCols] = useState(6);
   const [seats, setSeats] = useState<Seat[]>([]);
   const [generated, setGenerated] = useState(false);
-  const [layoutMode, setLayoutMode] = useState<LayoutMode>('grid');
+  
   const [rowsInput, setRowsInput] = useState('5');
   const [colsInput, setColsInput] = useState('6');
   const chartRef = useRef<HTMLDivElement>(null);
