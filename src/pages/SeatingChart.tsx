@@ -452,7 +452,7 @@ const SeatingChart = () => {
               <li><strong>Fair randomization:</strong> Fisher-Yates ensures every student has an equal chance of being in any seat — no bias, no favoritism.</li>
               <li><strong>Manage behavior:</strong> Strategically place students by locking certain seats, then let the tool handle the rest. Separate talkative pairs effortlessly.</li>
               <li><strong>Drag-and-drop flexibility:</strong> Fine-tune the generated chart by dragging students between seats — no need to regenerate from scratch.</li>
-              <li><strong>Multiple layouts:</strong> Choose between traditional rows and cluster pods to match your classroom furniture arrangement.</li>
+              
               <li><strong>PNG export:</strong> Download a clean, printable image of your seating chart for your classroom door, lesson planner, or digital records.</li>
               <li><strong>100% private:</strong> All data stays in your browser — student names are never uploaded to any server.</li>
             </ul>
