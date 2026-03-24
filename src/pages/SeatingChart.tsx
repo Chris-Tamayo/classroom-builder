@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import AppHeader from '@/components/AppHeader';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
 
 // ── Fisher-Yates Shuffle ──
 function fisherYatesShuffle<T>(arr: T[]): T[] {
