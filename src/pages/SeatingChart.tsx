@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import AppHeader from '@/components/AppHeader';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
 
 // ── Fisher-Yates Shuffle ──
 function fisherYatesShuffle<T>(arr: T[]): T[] {
@@ -30,7 +30,7 @@ interface Seat {
   locked: boolean;
 }
 
-type LayoutMode = 'grid' | 'clusters';
+
 
 const SeatingChart = () => {
   useEffect(() => {
@@ -79,7 +79,7 @@ const SeatingChart = () => {
   const [cols, setCols] = useState(6);
   const [seats, setSeats] = useState<Seat[]>([]);
   const [generated, setGenerated] = useState(false);
-  const [layoutMode, setLayoutMode] = useState<LayoutMode>('grid');
+  
   const [rowsInput, setRowsInput] = useState('5');
   const [colsInput, setColsInput] = useState('6');
   const chartRef = useRef<HTMLDivElement>(null);
@@ -129,7 +129,7 @@ const SeatingChart = () => {
       .filter(n => n.length > 0);
   }, [namesInput]);
 
-  const totalSeats = layoutMode === 'clusters' ? rows * cols * 4 : rows * cols;
+  const totalSeats = rows * cols;
   const studentNames = parseNames();
   const overflow = studentNames.length > totalSeats;
 
@@ -223,51 +223,16 @@ const SeatingChart = () => {
 
   const handleCopyText = () => {
     const lines: string[] = [];
-    if (layoutMode === 'clusters') {
-      for (let cr = 0; cr < rows; cr++) {
-        for (let dr = 0; dr < 2; dr++) {
-          const rowParts: string[] = [];
-          for (let cc = 0; cc < cols; cc++) {
-            const clusterStart = (cr * cols + cc) * 4;
-            const seatIdx = clusterStart + dr * 2;
-            const s1 = seats[seatIdx]?.studentName || '(empty)';
-            const s2 = seats[seatIdx + 1]?.studentName || '(empty)';
-            rowParts.push(`${s1}\t${s2}`);
-          }
-          lines.push(rowParts.join('\t\t'));
-        }
-        lines.push('');
-      }
-    } else {
-      for (let r = 0; r < rows; r++) {
-        const row = seats.slice(r * cols, (r + 1) * cols);
-        lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
-      }
+    for (let r = 0; r < rows; r++) {
+      const row = seats.slice(r * cols, (r + 1) * cols);
+      lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
     }
     navigator.clipboard.writeText(lines.join('\n'));
     toast.success('Seating chart copied to clipboard');
   };
 
   const renderGrid = () => {
-    if (layoutMode === 'clusters') {
-      return (
-        <div className="inline-flex w-max flex-col items-start gap-6">
-          {Array.from({ length: rows }, (_, cr) => (
-            <div key={cr} className="flex w-max flex-nowrap gap-6">
-              {Array.from({ length: cols }, (_, cc) => {
-                const clusterStart = (cr * cols + cc) * 4;
-                const indices = [clusterStart, clusterStart + 1, clusterStart + 2, clusterStart + 3];
-                return (
-                  <div key={cc} className="grid shrink-0 grid-cols-2 gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
-                    {indices.map(idx => renderSeat(idx))}
-                  </div>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-      );
-    }
+
 
     return (
       <div
@@ -395,19 +360,6 @@ const SeatingChart = () => {
                 {totalSeats} total seats ({rows} × {cols})
               </p>
 
-              <div>
-                <Label>Layout Style</Label>
-                <RadioGroup value={layoutMode} onValueChange={(v) => setLayoutMode(v as LayoutMode)} className="flex gap-4 mt-1.5">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="grid" id="layout-grid" />
-                    <Label htmlFor="layout-grid" className="cursor-pointer font-normal">Rows</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="clusters" id="layout-clusters" />
-                    <Label htmlFor="layout-clusters" className="cursor-pointer font-normal">Clusters (2×2)</Label>
-                  </div>
-                </RadioGroup>
-              </div>
 
               {overflow && (
                 <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive" role="alert">
@@ -485,7 +437,7 @@ const SeatingChart = () => {
             <h2 className="text-xl font-semibold text-foreground mb-3">Classroom Seating Chart Ideas</h2>
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Traditional rows:</strong> Use a standard grid layout (e.g., 5 rows × 6 columns) for lecture-based classrooms or standardized testing setups.</li>
-              <li><strong>Clusters of 4:</strong> Switch to the cluster layout to group desks in pods of four — ideal for collaborative learning and group projects.</li>
+              
               <li><strong>Randomize weekly:</strong> Re-shuffle seats every week or month to encourage new friendships and prevent cliques from forming.</li>
               <li><strong>Strategic placement:</strong> Lock students who need front-row seating (for vision, hearing, or focus), then randomize the rest.</li>
               <li><strong>Flexible seating zones:</strong> Create a larger grid with empty seats to designate reading nooks, standing desks, or breakout areas.</li>
@@ -500,7 +452,7 @@ const SeatingChart = () => {
               <li><strong>Fair randomization:</strong> Fisher-Yates ensures every student has an equal chance of being in any seat — no bias, no favoritism.</li>
               <li><strong>Manage behavior:</strong> Strategically place students by locking certain seats, then let the tool handle the rest. Separate talkative pairs effortlessly.</li>
               <li><strong>Drag-and-drop flexibility:</strong> Fine-tune the generated chart by dragging students between seats — no need to regenerate from scratch.</li>
-              <li><strong>Multiple layouts:</strong> Choose between traditional rows and cluster pods to match your classroom furniture arrangement.</li>
+              
               <li><strong>PNG export:</strong> Download a clean, printable image of your seating chart for your classroom door, lesson planner, or digital records.</li>
               <li><strong>100% private:</strong> All data stays in your browser — student names are never uploaded to any server.</li>
             </ul>
