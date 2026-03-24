@@ -30,7 +30,7 @@ interface Seat {
   locked: boolean;
 }
 
-type LayoutMode = 'grid' | 'clusters';
+type LayoutMode = 'grid';
 
 const SeatingChart = () => {
   useEffect(() => {
