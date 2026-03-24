@@ -437,7 +437,7 @@ const SeatingChart = () => {
             <h2 className="text-xl font-semibold text-foreground mb-3">Classroom Seating Chart Ideas</h2>
             <ul className="list-disc list-inside space-y-2">
               <li><strong>Traditional rows:</strong> Use a standard grid layout (e.g., 5 rows × 6 columns) for lecture-based classrooms or standardized testing setups.</li>
-              <li><strong>Clusters of 4:</strong> Switch to the cluster layout to group desks in pods of four — ideal for collaborative learning and group projects.</li>
+              
               <li><strong>Randomize weekly:</strong> Re-shuffle seats every week or month to encourage new friendships and prevent cliques from forming.</li>
               <li><strong>Strategic placement:</strong> Lock students who need front-row seating (for vision, hearing, or focus), then randomize the rest.</li>
               <li><strong>Flexible seating zones:</strong> Create a larger grid with empty seats to designate reading nooks, standing desks, or breakout areas.</li>
