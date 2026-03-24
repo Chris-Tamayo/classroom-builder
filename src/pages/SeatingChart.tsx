@@ -360,19 +360,6 @@ const SeatingChart = () => {
                 {totalSeats} total seats ({rows} × {cols})
               </p>
 
-              <div>
-                <Label>Layout Style</Label>
-                <RadioGroup value={layoutMode} onValueChange={(v) => setLayoutMode(v as LayoutMode)} className="flex gap-4 mt-1.5">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="grid" id="layout-grid" />
-                    <Label htmlFor="layout-grid" className="cursor-pointer font-normal">Rows</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="clusters" id="layout-clusters" />
-                    <Label htmlFor="layout-clusters" className="cursor-pointer font-normal">Clusters (2×2)</Label>
-                  </div>
-                </RadioGroup>
-              </div>
 
               {overflow && (
                 <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive" role="alert">
