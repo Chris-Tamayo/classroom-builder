@@ -129,7 +129,7 @@ const SeatingChart = () => {
       .filter(n => n.length > 0);
   }, [namesInput]);
 
-  const totalSeats = layoutMode === 'clusters' ? rows * cols * 4 : rows * cols;
+  const totalSeats = rows * cols;
   const studentNames = parseNames();
   const overflow = studentNames.length > totalSeats;
 
