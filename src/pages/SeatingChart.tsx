@@ -223,26 +223,9 @@ const SeatingChart = () => {
 
   const handleCopyText = () => {
     const lines: string[] = [];
-    if (layoutMode === 'clusters') {
-      for (let cr = 0; cr < rows; cr++) {
-        for (let dr = 0; dr < 2; dr++) {
-          const rowParts: string[] = [];
-          for (let cc = 0; cc < cols; cc++) {
-            const clusterStart = (cr * cols + cc) * 4;
-            const seatIdx = clusterStart + dr * 2;
-            const s1 = seats[seatIdx]?.studentName || '(empty)';
-            const s2 = seats[seatIdx + 1]?.studentName || '(empty)';
-            rowParts.push(`${s1}\t${s2}`);
-          }
-          lines.push(rowParts.join('\t\t'));
-        }
-        lines.push('');
-      }
-    } else {
-      for (let r = 0; r < rows; r++) {
-        const row = seats.slice(r * cols, (r + 1) * cols);
-        lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
-      }
+    for (let r = 0; r < rows; r++) {
+      const row = seats.slice(r * cols, (r + 1) * cols);
+      lines.push(row.map(s => s.studentName || '(empty)').join('\t'));
     }
     navigator.clipboard.writeText(lines.join('\n'));
     toast.success('Seating chart copied to clipboard');
